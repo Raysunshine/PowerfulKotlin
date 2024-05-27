@@ -1,3 +1,5 @@
+package org.raysun.kmp.platform
+
 import platform.UIKit.UIDevice
 
 class IOSPlatform : Platform {

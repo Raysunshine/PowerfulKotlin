@@ -1,3 +1,5 @@
+package org.raysun.kmp.platform
+
 import android.os.Build
 
 class AndroidPlatform : Platform {

@@ -1,3 +1,7 @@
+package org.raysun.kmp
+
+import org.raysun.kmp.platform.getPlatform
+
 class Greeting {
     private val platform = getPlatform()
 
