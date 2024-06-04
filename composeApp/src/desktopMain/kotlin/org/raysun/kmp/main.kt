@@ -7,13 +7,14 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import org.raysun.kmp.di.KoinInit
 import org.raysun.kmp.di.platformModule
-import org.raysun.kmp.window.AppWindowManager
+import org.raysun.kmp.platform.AppWindowManager
 import org.raysun.kmp.window.WindowType
 
 fun main() {
     val koin = KoinInit().koinInit(
         listOf(platformModule)
     )
+
     val windowManagerInstance: AppWindowManager = koin.get<AppWindowManager>()
 
     return application {
@@ -21,16 +22,21 @@ fun main() {
         for (window in windowManager.windows) {
             key(window) {
                 when (window.type) {
-                    WindowType.COMMON -> {
+                    WindowType.MAIN -> {
                         Window(
-                            onCloseRequest = if (window.isMainWindow) window.exit ?: {} else window::close,
+                            onCloseRequest = { window.exit?.invoke() ?: exitApplication() },
                             title = window.title,
                         ) {
-                            if (window.isMainWindow) {
-                                App()
-                            } else {
-                                window.content()
-                            }
+                            App()
+                        }
+                    }
+
+                    WindowType.COMMON -> {
+                        Window(
+                            onCloseRequest = window::close,
+                            title = window.title,
+                        ) {
+                            window.content()
                         }
                     }
 

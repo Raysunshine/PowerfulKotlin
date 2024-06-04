@@ -16,12 +16,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.getKoin
+import org.raysun.kmp.platform.AppWindowManager
+import org.raysun.kmp.platform.Platform
+import org.raysun.kmp.window.WindowType
 import powerfulkotlin.composeapp.generated.resources.Res
 import powerfulkotlin.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
-fun App() {
+fun App(appWindowManager: AppWindowManager = getKoin().get()) {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -34,6 +38,28 @@ fun App() {
                     Image(painterResource(Res.drawable.compose_multiplatform), null)
                     Text("Compose: $greeting")
                 }
+            }
+            Button(onClick = {
+                if (Platform.isDesktop()) {
+                    appWindowManager.createNewWindow("HelloWorld", WindowType.COMMON) {
+                        Text("Hello World,Successful")
+                    }
+                } else {
+
+                }
+            }) {
+                Text("Add A Window")
+            }
+            Button(onClick = {
+                if (Platform.isDesktop()) {
+                    appWindowManager.createNewWindow("HelloWorld", WindowType.COMMON) {
+                        Text("Hello World,Successful")
+                    }
+                } else {
+
+                }
+            }) {
+                Text("Add A Dialog")
             }
         }
     }

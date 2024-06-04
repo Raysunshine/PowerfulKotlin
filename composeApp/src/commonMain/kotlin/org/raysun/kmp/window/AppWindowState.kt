@@ -1,17 +1,17 @@
 package org.raysun.kmp.window
 
 import androidx.compose.runtime.Composable
-import java.util.UUID
 
 const val MAIN_ID = "MAIN_ID"
 
 enum class WindowType {
+    MAIN,
     COMMON,
     DIALOG;
 }
 
 class AppWindowState(
-    val id: String = UUID.randomUUID().toString(),
+    val id: String? = null,
     val type: WindowType,
     val title: String,
     private val close: (AppWindowState) -> Unit,
@@ -19,7 +19,7 @@ class AppWindowState(
     val content: @Composable () -> Unit,
 ) {
 
-    val isMainWindow = id == MAIN_ID
+    val isMainWindow = type == WindowType.MAIN
 
     fun close() = close(this)
 }
