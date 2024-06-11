@@ -37,6 +37,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.slf4j.simple)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -49,6 +51,7 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.logging)
 
             implementation(libs.koin.core)
             implementation(libs.voyager.navigator)
@@ -56,6 +59,9 @@ kotlin {
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.ktor.client.apache)
+            implementation(libs.ktor.client.logging.jvm)
+            implementation(libs.slf4j.simple)
         }
     }
 }
