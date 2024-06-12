@@ -13,7 +13,9 @@ import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
-import org.raysun.kmp.remote.KtorHotKeyApi
+import org.raysun.kmp.data.HotKeyRepositoryImpl
+import org.raysun.kmp.domain.repository.HotKeyRepository
+import org.raysun.kmp.domain.usecase.GetHotKeyUseCase
 import org.raysun.kmp.ui.gallery.GalleryScreenModel
 
 fun initKoin() {
@@ -21,6 +23,9 @@ fun initKoin() {
         modules(
             platformModule,
             networkModule,
+            repositoryModule,
+            useCaseModule,
+            screenModelModule,
         )
     }
 }
@@ -57,10 +62,18 @@ private val networkModule = module {
             }
         }
     }
+}
 
+private val repositoryModule = module {
+    single<HotKeyRepository> { HotKeyRepositoryImpl(get()) }
+}
+
+private val useCaseModule = module {
     single {
-        KtorHotKeyApi(get())
+        GetHotKeyUseCase(get())
     }
+}
 
+private val screenModelModule = module {
     factoryOf(::GalleryScreenModel)
 }
