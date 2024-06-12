@@ -12,10 +12,11 @@ import kotlinx.serialization.json.Json
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import org.raysun.kmp.data.HotKeyRepositoryImpl
-import org.raysun.kmp.domain.repository.HotKeyRepository
-import org.raysun.kmp.domain.usecase.GetHotKeyUseCase
+import org.raysun.kmp.data.MuseumRepositoryImpl
+import org.raysun.kmp.domain.repository.MuseumRepository
+import org.raysun.kmp.domain.usecase.GetGalleriesUseCase
 import org.raysun.kmp.ui.gallery.GalleryScreenModel
 
 fun initKoin() {
@@ -39,7 +40,7 @@ private val networkModule = module {
             defaultRequest {
                 url {
                     protocol = URLProtocol.HTTPS
-                    host = "www.wanandroid.com"
+                    host = "raw.githubusercontent.com"
                 }
             }
 
@@ -65,13 +66,11 @@ private val networkModule = module {
 }
 
 private val repositoryModule = module {
-    single<HotKeyRepository> { HotKeyRepositoryImpl(get()) }
+    single<MuseumRepository> { MuseumRepositoryImpl(get()) }
 }
 
 private val useCaseModule = module {
-    single {
-        GetHotKeyUseCase(get())
-    }
+    singleOf(::GetGalleriesUseCase)
 }
 
 private val screenModelModule = module {
