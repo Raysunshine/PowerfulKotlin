@@ -1,6 +1,8 @@
 package org.raysun.kmp.data
 
 import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.json.Json
 import org.raysun.kmp.domain.repository.MuseumRepository
 import org.raysun.kmp.domain.resp.Galleries
@@ -9,8 +11,8 @@ class MuseumRepositoryImpl(
     private val httpClient: HttpClient,
 ) : MuseumRepository {
     override suspend fun getGalleries(): List<Galleries> {
-//        val galleriesString = httpClient.get("/Kotlin/KMP-App-Template/main/list.json").bodyAsText()
-        return Json.decodeFromString(galleriesBodyString)
+        val galleriesString = httpClient.get("/Kotlin/KMP-App-Template/main/list.json").bodyAsText()
+        return Json.decodeFromString(galleriesString)
     }
 
     private val galleriesBodyString = """[
