@@ -46,8 +46,8 @@ class GalleryScreen : Screen {
                 splitContent = {
                     Spacer(modifier = Modifier.height(20.dp).fillMaxWidth().background(Color.Blue))
                 }
-            ) {
-                LazyColumn {
+            ) { bodyModifier ->
+                LazyColumn(modifier = bodyModifier) {
                     items(50) {
                         Text("Hello $it")
                     }

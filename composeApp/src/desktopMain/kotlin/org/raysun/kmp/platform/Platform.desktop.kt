@@ -15,13 +15,13 @@ actual fun GalleriesFrame(
     modifier: Modifier,
     sideBar: @Composable () -> Unit,
     splitContent: @Composable () -> Unit,
-    body: @Composable () -> Unit
+    body: @Composable (modifier: Modifier) -> Unit
 ) {
     Row(modifier = modifier.fillMaxSize()) {
         Column {
             sideBar()
         }
         splitContent()
-        body()
+        body(Modifier.weight(1F))
     }
 }

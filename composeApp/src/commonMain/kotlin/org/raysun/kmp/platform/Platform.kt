@@ -11,5 +11,5 @@ expect fun GalleriesFrame(
     modifier: Modifier = Modifier,
     sideBar: @Composable () -> Unit = {},
     splitContent: @Composable () -> Unit = {},
-    body: @Composable () -> Unit = {}
+    body: @Composable (modifier: Modifier) -> Unit = {}
 )
