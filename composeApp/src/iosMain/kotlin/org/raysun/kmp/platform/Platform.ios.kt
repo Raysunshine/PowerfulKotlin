@@ -20,6 +20,8 @@ actual fun GalleriesFrame(
 actual fun SideBarItem(
     modifier: Modifier,
     symbol: String,
-    icon: ImageVector
+    icon: ImageVector,
+    isSelected: Boolean,
+    onItemClick: () -> Unit,
 ) {
 }

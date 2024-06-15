@@ -19,4 +19,6 @@ expect fun SideBarItem(
     modifier: Modifier = Modifier,
     symbol: String,
     icon: ImageVector,
+    isSelected: Boolean,
+    onItemClick: () -> Unit,
 )

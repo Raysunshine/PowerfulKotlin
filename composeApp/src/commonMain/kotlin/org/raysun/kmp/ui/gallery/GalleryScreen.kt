@@ -3,15 +3,7 @@ package org.raysun.kmp.ui.gallery
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -20,8 +12,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,16 +36,27 @@ class GalleryScreen : Screen {
 
         val uiState = screenModel.state.collectAsState()
 
+        var selectedPage by rememberSaveable {
+            mutableStateOf(MainPageEnum.HOME)
+        }
+
         GalleriesFrame(
+            modifier = Modifier.background(Color(0xFF202020)),
             sideBar = {
                 SideBarItem(
                     symbol = "首页",
-                    icon = Icons.Default.Home
-                )
+                    icon = Icons.Default.Home,
+                    isSelected = selectedPage == MainPageEnum.HOME,
+                ) {
+                    selectedPage = MainPageEnum.HOME
+                }
                 SideBarItem(
                     symbol = "详情",
-                    icon = Icons.Default.Create
-                )
+                    icon = Icons.Default.Create,
+                    isSelected = selectedPage == MainPageEnum.DETAIL,
+                ) {
+                    selectedPage = MainPageEnum.DETAIL
+                }
             },
         ) { bodyModifier ->
             AnimatedContent(
@@ -71,6 +74,14 @@ class GalleryScreen : Screen {
                     EmptyScreenContent(Modifier.fillMaxSize())
                 }
             }
+        }
+    }
+
+    private companion object {
+        enum class MainPageEnum {
+            HOME,
+            DETAIL,
+            SETTINGS
         }
     }
 }

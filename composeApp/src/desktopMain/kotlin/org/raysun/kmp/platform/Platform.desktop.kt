@@ -1,7 +1,7 @@
 package org.raysun.kmp.platform
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,10 +15,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import org.raysun.kmp.components.SideBarItemIndicator
 
 @Composable
 actual fun ExitReminder(onCloseRequest: () -> Unit) {
@@ -48,17 +48,24 @@ actual fun GalleriesFrame(
 actual fun SideBarItem(
     modifier: Modifier,
     symbol: String,
-    icon: ImageVector
+    icon: ImageVector,
+    isSelected: Boolean,
+    onItemClick: () -> Unit,
 ) {
+    val itemBackground = if (isSelected) Color(0xFF2D2D2D) else Color.Transparent
+
     Row(
-        modifier = Modifier.padding(4.dp).clip(RoundedCornerShape(2.dp)).background(Color.Gray),
-        horizontalArrangement = Arrangement.Center,
+        modifier = modifier
+            .width(200.dp)
+            .clickable { onItemClick() }
+            .padding(horizontal = 6.dp, vertical = 4.dp)
+            .background(color = itemBackground, shape = RoundedCornerShape(4.dp)),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        SideBarItemIndicator(visible = isSelected)
         Spacer(modifier = Modifier.width(6.dp))
         Icon(icon, contentDescription = null)
-        Spacer(modifier = Modifier.width(6.dp))
+        Spacer(modifier = Modifier.width(12.dp))
         Text(symbol)
-        Spacer(modifier = Modifier.width(6.dp))
     }
 }
