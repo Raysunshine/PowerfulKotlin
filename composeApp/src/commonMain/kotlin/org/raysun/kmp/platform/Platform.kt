@@ -2,6 +2,7 @@ package org.raysun.kmp.platform
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
 expect fun ExitReminder(onCloseRequest: () -> Unit = {})
@@ -10,6 +11,12 @@ expect fun ExitReminder(onCloseRequest: () -> Unit = {})
 expect fun GalleriesFrame(
     modifier: Modifier = Modifier,
     sideBar: @Composable () -> Unit = {},
-    splitContent: @Composable () -> Unit = {},
     body: @Composable (modifier: Modifier) -> Unit = {}
+)
+
+@Composable
+expect fun SideBarItem(
+    modifier: Modifier = Modifier,
+    symbol: String,
+    icon: ImageVector,
 )

@@ -15,9 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -32,6 +34,7 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.raysun.kmp.domain.resp.Galleries
 import org.raysun.kmp.platform.GalleriesFrame
+import org.raysun.kmp.platform.SideBarItem
 
 class GalleryScreen : Screen {
 
@@ -43,17 +46,14 @@ class GalleryScreen : Screen {
 
         GalleriesFrame(
             sideBar = {
-                Button(
-                    onClick = {}
-                ) {
-                    Text("Icons1")
-                }
-
-                Button(
-                    onClick = {}
-                ) {
-                    Text("Icons2")
-                }
+                SideBarItem(
+                    symbol = "首页",
+                    icon = Icons.Default.Home
+                )
+                SideBarItem(
+                    symbol = "详情",
+                    icon = Icons.Default.Create
+                )
             },
         ) { bodyModifier ->
             AnimatedContent(

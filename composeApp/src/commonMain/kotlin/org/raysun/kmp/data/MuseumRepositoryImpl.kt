@@ -11,7 +11,11 @@ class MuseumRepositoryImpl(
     private val httpClient: HttpClient,
 ) : MuseumRepository {
     override suspend fun getGalleries(): List<Galleries> {
-        val galleriesString = httpClient.get("/Kotlin/KMP-App-Template/main/list.json").bodyAsText()
+        val galleriesString = try {
+            httpClient.get("/Kotlin/KMP-App-Template/main/list.json").bodyAsText()
+        } catch (e: Exception) {
+            galleriesBodyString
+        }
         return Json.decodeFromString(galleriesString)
     }
 
