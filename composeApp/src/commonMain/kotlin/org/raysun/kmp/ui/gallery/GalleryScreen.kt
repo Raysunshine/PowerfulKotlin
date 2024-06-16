@@ -3,7 +3,15 @@ package org.raysun.kmp.ui.gallery
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -12,8 +20,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,13 +49,11 @@ class GalleryScreen : Screen {
 
         val uiState = screenModel.state.collectAsState()
 
-        var selectedPage by rememberSaveable {
-            mutableStateOf(MainPageEnum.HOME)
-        }
+        var selectedPage by rememberSaveable { mutableStateOf(MainPageEnum.HOME) }
 
         GalleriesFrame(
             modifier = Modifier.background(Color(0xFF202020)),
-            sideBar = {
+            sideBar = { layoutModifier ->
                 SideBarItem(
                     symbol = "首页",
                     icon = Icons.Default.Home,
@@ -56,6 +67,14 @@ class GalleryScreen : Screen {
                     isSelected = selectedPage == MainPageEnum.DETAIL,
                 ) {
                     selectedPage = MainPageEnum.DETAIL
+                }
+                Spacer(layoutModifier)
+                SideBarItem(
+                    symbol = "设置",
+                    icon = Icons.Default.Settings,
+                    isSelected = selectedPage == MainPageEnum.SETTINGS,
+                ) {
+                    selectedPage = MainPageEnum.SETTINGS
                 }
             },
         ) { bodyModifier ->
@@ -77,12 +96,10 @@ class GalleryScreen : Screen {
         }
     }
 
-    private companion object {
-        enum class MainPageEnum {
-            HOME,
-            DETAIL,
-            SETTINGS
-        }
+    private enum class MainPageEnum {
+        HOME,
+        DETAIL,
+        SETTINGS
     }
 }
 

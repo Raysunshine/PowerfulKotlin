@@ -24,7 +24,7 @@ actual fun ExitReminder(onCloseRequest: () -> Unit) {
 @Composable
 actual fun GalleriesFrame(
     modifier: Modifier,
-    sideBar: @Composable () -> Unit,
+    sideBar: @Composable (layoutModifier: Modifier) -> Unit,
     body: @Composable (modifier: Modifier) -> Unit
 ) {
     Column(modifier = modifier.fillMaxSize()) {
@@ -40,7 +40,7 @@ actual fun GalleriesFrame(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            sideBar()
+            sideBar(Modifier)
         }
     }
 

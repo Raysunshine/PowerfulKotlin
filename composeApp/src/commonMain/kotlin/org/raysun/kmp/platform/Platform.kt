@@ -10,7 +10,7 @@ expect fun ExitReminder(onCloseRequest: () -> Unit = {})
 @Composable
 expect fun GalleriesFrame(
     modifier: Modifier = Modifier,
-    sideBar: @Composable () -> Unit = {},
+    sideBar: @Composable (layoutModifier: Modifier) -> Unit = {},
     body: @Composable (modifier: Modifier) -> Unit = {}
 )
 

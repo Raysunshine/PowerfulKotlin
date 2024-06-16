@@ -11,7 +11,7 @@ actual fun ExitReminder(onCloseRequest: () -> Unit) {
 @Composable
 actual fun GalleriesFrame(
     modifier: Modifier,
-    sideBar: @Composable () -> Unit,
+    sideBar: @Composable (layoutModifier: Modifier) -> Unit,
     body: @Composable (modifier: Modifier) -> Unit
 ) {
 }
