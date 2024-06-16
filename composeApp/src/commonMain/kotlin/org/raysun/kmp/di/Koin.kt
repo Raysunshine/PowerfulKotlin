@@ -17,7 +17,7 @@ import org.koin.dsl.module
 import org.raysun.kmp.data.MuseumRepositoryImpl
 import org.raysun.kmp.domain.repository.MuseumRepository
 import org.raysun.kmp.domain.usecase.GetGalleriesUseCase
-import org.raysun.kmp.ui.gallery.GalleryScreenModel
+import org.raysun.kmp.feature.gallery.GalleryScreenModel
 
 fun initKoin() {
     startKoin {

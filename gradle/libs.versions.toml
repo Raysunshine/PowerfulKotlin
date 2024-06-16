@@ -47,6 +47,8 @@ ktor-client-logging-jvm = { module = "io.ktor:ktor-client-logging-jvm", version.
 # voyager
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-tab-navigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
 
 # slf4j
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }

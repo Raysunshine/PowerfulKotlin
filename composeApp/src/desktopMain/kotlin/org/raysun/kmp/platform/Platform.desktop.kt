@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -21,9 +22,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
+import org.jetbrains.compose.resources.painterResource
 import org.raysun.kmp.components.SideBarItemIndicator
+import powerfulkotlin.composeapp.generated.resources.Res
+import powerfulkotlin.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 actual fun ExitReminder(onCloseRequest: () -> Unit) {
@@ -32,7 +39,8 @@ actual fun ExitReminder(onCloseRequest: () -> Unit) {
 @Composable
 actual fun GalleriesFrame(
     modifier: Modifier,
-    sideBar: @Composable (layoutModifier: Modifier) -> Unit,
+    tabNavigator: TabNavigator,
+    sideBarItems: List<Tab>,
     body: @Composable (modifier: Modifier) -> Unit
 ) {
     Row(modifier = modifier.fillMaxSize()) {
@@ -40,11 +48,20 @@ actual fun GalleriesFrame(
             modifier = Modifier.fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            sideBar(Modifier.weight(1F))
+            sideBarItems.forEachIndexed { index, tab ->
+                if (index == sideBarItems.lastIndex) {
+                    Spacer(modifier = Modifier.weight(1F))
+                }
+                SideBarItem(
+                    symbol = tab.options.title,
+                    icon = tab.options.icon ?: painterResource(Res.drawable.compose_multiplatform),
+                    isSelected = tabNavigator.current == tab,
+                ) {
+                    tabNavigator.current = tab
+                }
+            }
         }
-        Spacer(
-            modifier = Modifier.fillMaxHeight().width(0.5.dp).background(Color.LightGray),
-        )
+        Spacer(modifier = Modifier.fillMaxHeight().width(0.5.dp).background(Color.LightGray))
         body(Modifier.weight(1F))
     }
 }
@@ -53,7 +70,7 @@ actual fun GalleriesFrame(
 actual fun SideBarItem(
     modifier: Modifier,
     symbol: String,
-    icon: ImageVector,
+    icon: Painter,
     isSelected: Boolean,
     onItemClick: () -> Unit,
 ) {
@@ -74,8 +91,8 @@ actual fun SideBarItem(
     ) {
         SideBarItemIndicator(visible = isSelected)
         Spacer(modifier = Modifier.width(6.dp))
-        Icon(icon, contentDescription = null)
+        Icon(icon, modifier = Modifier.size(16.dp), contentDescription = null, tint = Color.Unspecified)
         Spacer(modifier = Modifier.width(12.dp))
-        Text(symbol)
+        Text(symbol, color = Color.White, fontSize = 14.sp)
     }
 }

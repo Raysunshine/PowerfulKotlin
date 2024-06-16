@@ -1,4 +1,4 @@
-package org.raysun.kmp.ui.gallery.model
+package org.raysun.kmp.feature.gallery.model
 
 import org.raysun.kmp.domain.resp.Galleries
 

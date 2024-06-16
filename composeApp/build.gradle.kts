@@ -54,8 +54,12 @@ kotlin {
             implementation(libs.ktor.client.logging)
 
             implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.koin)
+            implementation(libs.voyager.tab.navigator)
+            implementation(libs.voyager.transitions)
 
             implementation(libs.kamel)
         }

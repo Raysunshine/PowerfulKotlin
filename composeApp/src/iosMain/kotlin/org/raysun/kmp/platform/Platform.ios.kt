@@ -2,7 +2,9 @@ package org.raysun.kmp.platform
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 
 @Composable
 actual fun ExitReminder(onCloseRequest: () -> Unit) {
@@ -11,7 +13,8 @@ actual fun ExitReminder(onCloseRequest: () -> Unit) {
 @Composable
 actual fun GalleriesFrame(
     modifier: Modifier,
-    sideBar: @Composable (layoutModifier: Modifier) -> Unit,
+    tabNavigator: TabNavigator,
+    sideBarItems: List<Tab>,
     body: @Composable (modifier: Modifier) -> Unit
 ) {
 }
@@ -20,7 +23,7 @@ actual fun GalleriesFrame(
 actual fun SideBarItem(
     modifier: Modifier,
     symbol: String,
-    icon: ImageVector,
+    icon: Painter,
     isSelected: Boolean,
     onItemClick: () -> Unit,
 ) {
