@@ -11,7 +11,6 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import org.raysun.kmp.data.MuseumRepositoryImpl
@@ -19,6 +18,7 @@ import org.raysun.kmp.domain.repository.MuseumRepository
 import org.raysun.kmp.domain.usecase.GetGalleriesUseCase
 import org.raysun.kmp.feature.detail.DetailScreenModel
 import org.raysun.kmp.feature.gallery.GalleryScreenModel
+import org.raysun.kmp.main.MainScreenModel
 
 fun initKoin() {
     startKoin {
@@ -75,6 +75,7 @@ private val useCaseModule = module {
 }
 
 private val screenModelModule = module {
-    factoryOf(::GalleryScreenModel)
-    factoryOf(::DetailScreenModel)
+    singleOf(::GalleryScreenModel)
+    singleOf(::DetailScreenModel)
+    singleOf(::MainScreenModel)
 }

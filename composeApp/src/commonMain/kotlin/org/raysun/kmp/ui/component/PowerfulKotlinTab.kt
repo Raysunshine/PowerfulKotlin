@@ -2,10 +2,10 @@ package org.raysun.kmp.ui.component
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
 import org.raysun.kmp.domain.resp.Galleries
 import org.raysun.kmp.feature.detail.DetailScreen
 import org.raysun.kmp.feature.detail.DetailScreenModel
@@ -45,9 +45,7 @@ sealed class PowerfulKotlinTab {
     ) : Tab {
         @Composable
         override fun Content() {
-            val screenModel: DetailScreenModel = rememberScreenModel<DetailScreenModel> {
-                DetailScreenModel()
-            }
+            val screenModel: DetailScreenModel = koinInject()
             if (detail != null) with(detail) {
                 screenModel.onAction(DetailScreenAction.OnGalleriesChanged(this))
             }

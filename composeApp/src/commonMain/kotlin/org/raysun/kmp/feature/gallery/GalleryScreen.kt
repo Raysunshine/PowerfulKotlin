@@ -30,15 +30,19 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.koin.compose.koinInject
 import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.main.MainScreenModel
 import org.raysun.kmp.ui.component.PowerfulKotlinTab
 
 @Composable
 fun GalleryScreen(
-    screenModel: GalleryScreenModel = koinInject()
+    screenModel: GalleryScreenModel = koinInject(),
+    mainScreenModel: MainScreenModel = koinInject(),
 ) {
 
     val localNavigator = LocalNavigator.current
     val uiState = screenModel.state.collectAsState().value
+
+    val mainUiState = mainScreenModel.state.collectAsState().value
 
     AnimatedContent(
         uiState.picList.isNotEmpty(),
@@ -47,7 +51,11 @@ fun GalleryScreen(
             ObjectGrid(
                 objects = uiState.picList,
                 onObjectClick = { index ->
-                    localNavigator?.push(PowerfulKotlinTab.DetailTab(uiState.picList[index]))
+                    if (mainUiState.isDetailDisplayedInWindow) {
+                        // TODO("通过多窗口来弹出Detail")
+                    } else {
+                        localNavigator?.push(PowerfulKotlinTab.DetailTab(uiState.picList[index]))
+                    }
                 }
             )
         } else {
