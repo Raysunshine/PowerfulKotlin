@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -25,16 +25,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.LocalNavigator
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.koin.compose.koinInject
 import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.ui.component.PowerfulKotlinTab
 
 @Composable
 fun GalleryScreen(
     screenModel: GalleryScreenModel = koinInject()
 ) {
 
+    val localNavigator = LocalNavigator.current
     val uiState = screenModel.state.collectAsState().value
 
     AnimatedContent(
@@ -43,8 +46,8 @@ fun GalleryScreen(
         if (objectsAvailable) {
             ObjectGrid(
                 objects = uiState.picList,
-                onObjectClick = { objectId ->
-                    println("OnObjectClick -> $objectId")
+                onObjectClick = { index ->
+                    localNavigator?.push(PowerfulKotlinTab.DetailTab(uiState.picList[index]))
                 }
             )
         } else {
@@ -62,10 +65,10 @@ private fun ObjectGrid(
     LazyVerticalGrid(
         columns = GridCells.Adaptive(180.dp), modifier = modifier.fillMaxSize(), contentPadding = PaddingValues(8.dp)
     ) {
-        items(objects, key = { it.objectID ?: 0 }) { obj ->
+        itemsIndexed(objects, key = { _, it -> it.objectID ?: 0 }) { index, obj ->
             ObjectFrame(
                 obj = obj,
-                onClick = { onObjectClick(obj.objectID ?: 0) },
+                onClick = { onObjectClick(index) },
             )
         }
     }

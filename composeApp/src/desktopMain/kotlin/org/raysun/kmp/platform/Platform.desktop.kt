@@ -52,11 +52,14 @@ actual fun GalleriesFrame(
                 if (index == sideBarItems.lastIndex) {
                     Spacer(modifier = Modifier.weight(1F))
                 }
+                val isSelected = tabNavigator.current.options.index == tab.options.index
                 SideBarItem(
                     symbol = tab.options.title,
                     icon = tab.options.icon ?: painterResource(Res.drawable.compose_multiplatform),
-                    isSelected = tabNavigator.current == tab,
+                    isSelected = tabNavigator.current.options.index == tab.options.index,
                 ) {
+                    if (isSelected) return@SideBarItem
+
                     tabNavigator.current = tab
                 }
             }

@@ -16,7 +16,7 @@ class MainScreen : Screen {
     @Composable
     override fun Content() {
         TabNavigator(
-            PowerfulKotlinTab.GalleryTab,
+            tab = PowerfulKotlinTab.GalleryTab,
             disposeNestedNavigators = false,
         ) {
             val tabNavigator = LocalTabNavigator.current
@@ -26,7 +26,7 @@ class MainScreen : Screen {
                 tabNavigator = tabNavigator,
                 sideBarItems = listOf(
                     PowerfulKotlinTab.GalleryTab,
-                    PowerfulKotlinTab.DetailTab,
+                    PowerfulKotlinTab.DetailTab(),
                     PowerfulKotlinTab.SettingsTab,
                 ),
             ) { screenModifier ->
