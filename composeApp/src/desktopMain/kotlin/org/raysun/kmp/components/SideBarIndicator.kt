@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +23,7 @@ fun SideBarItemIndicator(visible: Boolean) {
             slideInVertically() togetherWith slideOutHorizontally()
         }
     ) { indicatorVisible ->
-        val indicatorColor = if (indicatorVisible) Color(0xFF76B9ED) else Color.Transparent
+        val indicatorColor = if (indicatorVisible) MaterialTheme.colors.secondary else Color.Transparent
 
         Spacer(
             modifier = Modifier

@@ -1,10 +1,7 @@
 package org.raysun.kmp.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
@@ -22,7 +19,6 @@ class MainScreen : Screen {
             val tabNavigator = LocalTabNavigator.current
 
             GalleriesFrame(
-                modifier = Modifier.background(Color(0xFF202020)),
                 tabNavigator = tabNavigator,
                 sideBarItems = listOf(
                     PowerfulKotlinTab.GalleryTab,

@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -76,7 +77,7 @@ actual fun GalleriesFrame(
                 }
             }
         }
-        Spacer(modifier = Modifier.fillMaxHeight().width(0.5.dp).background(Color.LightGray))
+        Spacer(modifier = Modifier.fillMaxHeight().width(0.5.dp))
         body(Modifier.weight(1F))
     }
 }
@@ -92,7 +93,7 @@ actual fun SideBarItem(
     val hoverInteractionSource = remember { MutableInteractionSource() }
     val isHovered by hoverInteractionSource.collectIsHoveredAsState()
 
-    val itemBackground = if (isSelected || isHovered) Color(0xFF2D2D2D) else Color.Transparent
+    val itemBackground = if (isSelected || isHovered) MaterialTheme.colors.primaryVariant else Color.Transparent
 
     Row(
         modifier = modifier
@@ -108,7 +109,7 @@ actual fun SideBarItem(
         Spacer(modifier = Modifier.width(6.dp))
         Icon(icon, modifier = Modifier.size(16.dp), contentDescription = null, tint = Color.Unspecified)
         Spacer(modifier = Modifier.width(12.dp))
-        Text(symbol, color = Color.White, fontSize = 14.sp)
+        Text(symbol, fontSize = 14.sp)
     }
 }
 
@@ -118,7 +119,7 @@ actual fun showDetailInWindow(detail: Galleries) {
         type = WindowType.COMMON,
         content = {
             Column(
-                modifier = Modifier.fillMaxSize().background(Color.Red),
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top,
             ) {

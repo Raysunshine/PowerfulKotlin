@@ -4,8 +4,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -119,7 +117,7 @@ fun DetailDialog(
             KamelImage(
                 resource = asyncPainterResource(data = detail.primaryImageSmall ?: ""),
                 contentDescription = null,
-                modifier = Modifier.border(2.dp, color = Color.White).aspectRatio(0.6F),
+                modifier = Modifier.aspectRatio(0.6F),
             )
             AnimatedContent(
                 targetState = isShow,
@@ -127,7 +125,7 @@ fun DetailDialog(
                     fadeIn() + enterTransition togetherWith fadeOut()
                 }
             ) { showInformation ->
-                Text("Hello World", color = if (showInformation) Color.White else Color.Transparent)
+                Text("Hello World", color = if (!showInformation) Color.Transparent else MaterialTheme.colors.primary)
             }
         }
     }
@@ -162,7 +160,7 @@ private fun ObjectFrame(
             resource = asyncPainterResource(data = obj.primaryImageSmall ?: ""),
             contentDescription = obj.title,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth().aspectRatio(1f).background(Color.LightGray),
+            modifier = Modifier.fillMaxWidth().aspectRatio(1f),
         )
 
         Spacer(modifier = Modifier.height(2.dp))
