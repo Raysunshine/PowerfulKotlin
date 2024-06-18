@@ -57,7 +57,9 @@ actual fun GalleriesFrame(
     sideBarItems: List<Tab>,
     body: @Composable (modifier: Modifier) -> Unit,
 ) {
-    Row(modifier = modifier.fillMaxSize()) {
+    Row(
+        modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background)
+    ) {
         Column(
             modifier = Modifier.fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -78,7 +80,7 @@ actual fun GalleriesFrame(
                 }
             }
         }
-        Spacer(modifier = Modifier.fillMaxHeight().width(0.5.dp))
+        Spacer(modifier = Modifier.fillMaxHeight().width(0.5.dp).background(MaterialTheme.colors.primaryVariant))
         body(Modifier.weight(1F))
     }
 }

@@ -48,7 +48,7 @@ actual fun GalleriesFrame(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(0.5.dp)
-                .background(MaterialTheme.colors.secondary)
+                .background(MaterialTheme.colors.primaryVariant)
         )
         Row(
             modifier = Modifier.fillMaxWidth(),

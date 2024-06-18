@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 
 private val lightScheme = lightColors(
     primary = primaryLight,
-    primaryVariant = primaryContainerLight,
+    primaryVariant = primaryVariantLight,
     secondary = secondaryLight,
     secondaryVariant = secondaryContainerLight,
     background = backgroundLight,
@@ -23,7 +23,7 @@ private val lightScheme = lightColors(
 
 private val darkScheme = darkColors(
     primary = primaryDark,
-    primaryVariant = primaryContainerDark,
+    primaryVariant = primaryVariantDark,
     secondary = secondaryDark,
     secondaryVariant = secondaryContainerDark,
     background = backgroundDark,

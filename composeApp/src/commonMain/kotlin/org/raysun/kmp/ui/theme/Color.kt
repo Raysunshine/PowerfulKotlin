@@ -7,7 +7,8 @@ val primaryLight = Color(0xFF415F91)
 val primaryDark = Color(0xFFAAC7FF)
 
 // primaryVariant
-
+val primaryVariantLight = Color(0xFFC4C6D0)
+val primaryVariantDark = Color(0xFF44474E)
 
 // secondary
 
@@ -57,7 +58,6 @@ val surfaceLight = Color(0xFFF9F9FF)
 val surfaceVariantLight = Color(0xFFE0E2EC)
 val onSurfaceVariantLight = Color(0xFF44474E)
 val outlineLight = Color(0xFF74777F)
-val outlineVariantLight = Color(0xFFC4C6D0)
 val scrimLight = Color(0xFF000000)
 val inverseSurfaceLight = Color(0xFF2E3036)
 val inverseOnSurfaceLight = Color(0xFFF0F0F7)
@@ -90,7 +90,6 @@ val surfaceDark = Color(0xFF111318)
 val surfaceVariantDark = Color(0xFF44474E)
 val onSurfaceVariantDark = Color(0xFFC4C6D0)
 val outlineDark = Color(0xFF8E9099)
-val outlineVariantDark = Color(0xFF44474E)
 val scrimDark = Color(0xFF000000)
 val inverseSurfaceDark = Color(0xFFE2E2E9)
 val inverseOnSurfaceDark = Color(0xFF2E3036)
