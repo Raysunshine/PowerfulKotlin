@@ -102,7 +102,7 @@ actual fun DetailDialogFrame(
     detailDescription: @Composable (enterTransition: EnterTransition) -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         detailImage()

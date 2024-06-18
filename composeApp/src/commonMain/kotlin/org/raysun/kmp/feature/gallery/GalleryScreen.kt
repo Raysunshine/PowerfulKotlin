@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -109,18 +111,19 @@ fun DetailDialog(
         onDismissRequest = onDismissRequest,
     ) {
         DetailDialogFrame(
-            modifier = modifier
+            modifier = modifier.background(MaterialTheme.colors.onSurface)
         ) { enterTransition ->
             KamelImage(
                 resource = asyncPainterResource(data = detail.primaryImageSmall ?: ""),
                 contentDescription = null,
-                modifier = Modifier.aspectRatio(0.6F),
+                modifier = Modifier.aspectRatio(0.6F).wrapContentSize(),
+                contentScale = ContentScale.Inside,
             )
             AnimatedContent(targetState = isShow, transitionSpec = {
                 fadeIn() + enterTransition togetherWith fadeOut()
             }) { showInformation ->
                 Text(
-                    "Hello World",
+                    "Hello World111111111111123",
                     color = if (!showInformation) Color.Transparent else MaterialTheme.colors.onBackground
                 )
             }
