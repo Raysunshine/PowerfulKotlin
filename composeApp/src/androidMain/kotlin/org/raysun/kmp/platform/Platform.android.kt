@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import org.jetbrains.compose.resources.painterResource
+import org.raysun.kmp.domain.resp.Galleries
 import powerfulkotlin.composeapp.generated.resources.Res
 import powerfulkotlin.composeapp.generated.resources.compose_multiplatform
 
@@ -84,4 +85,7 @@ actual fun SideBarItem(
         Text(symbol)
         Spacer(modifier = Modifier.height(2.dp))
     }
+}
+
+actual fun showDetailInWindow(detail: Galleries) {
 }

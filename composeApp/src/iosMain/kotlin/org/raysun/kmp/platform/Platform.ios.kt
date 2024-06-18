@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import org.raysun.kmp.domain.resp.Galleries
 
 @Composable
 actual fun ExitReminder(onCloseRequest: () -> Unit) {
@@ -15,7 +16,7 @@ actual fun GalleriesFrame(
     modifier: Modifier,
     tabNavigator: TabNavigator,
     sideBarItems: List<Tab>,
-    body: @Composable (modifier: Modifier) -> Unit
+    body: @Composable (modifier: Modifier) -> Unit,
 ) {
 }
 
@@ -27,4 +28,7 @@ actual fun SideBarItem(
     isSelected: Boolean,
     onItemClick: () -> Unit,
 ) {
+}
+
+actual fun showDetailInWindow(detail: Galleries) {
 }

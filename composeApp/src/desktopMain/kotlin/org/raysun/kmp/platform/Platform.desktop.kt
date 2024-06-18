@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,12 +24,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import io.kamel.image.KamelImage
+import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.painterResource
 import org.raysun.kmp.components.SideBarItemIndicator
+import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.window.AppWindowManager
+import org.raysun.kmp.window.WindowType
 import powerfulkotlin.composeapp.generated.resources.Res
 import powerfulkotlin.composeapp.generated.resources.compose_multiplatform
 
@@ -41,7 +48,7 @@ actual fun GalleriesFrame(
     modifier: Modifier,
     tabNavigator: TabNavigator,
     sideBarItems: List<Tab>,
-    body: @Composable (modifier: Modifier) -> Unit
+    body: @Composable (modifier: Modifier) -> Unit,
 ) {
     Row(modifier = modifier.fillMaxSize()) {
         Column(
@@ -98,4 +105,26 @@ actual fun SideBarItem(
         Spacer(modifier = Modifier.width(12.dp))
         Text(symbol, color = Color.White, fontSize = 14.sp)
     }
+}
+
+actual fun showDetailInWindow(detail: Galleries) {
+    AppWindowManager.createNewWindow(
+        title = detail.title ?: "",
+        type = WindowType.COMMON,
+        content = {
+            Column(
+                modifier = Modifier.fillMaxSize().background(Color.Red),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top,
+            ) {
+                KamelImage(
+                    resource = asyncPainterResource(data = detail.primaryImage ?: ""),
+                    contentDescription = null,
+                    modifier = Modifier.width(500.dp),
+                    contentScale = ContentScale.FillWidth,
+                )
+                Spacer(modifier = Modifier.weight(1F))
+            }
+        }
+    )
 }

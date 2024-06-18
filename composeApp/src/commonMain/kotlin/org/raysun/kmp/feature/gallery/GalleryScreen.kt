@@ -31,6 +31,7 @@ import io.kamel.image.asyncPainterResource
 import org.koin.compose.koinInject
 import org.raysun.kmp.domain.resp.Galleries
 import org.raysun.kmp.main.MainScreenModel
+import org.raysun.kmp.platform.showDetailInWindow
 import org.raysun.kmp.ui.component.PowerfulKotlinTab
 
 @Composable
@@ -52,7 +53,7 @@ fun GalleryScreen(
                 objects = uiState.picList,
                 onObjectClick = { index ->
                     if (mainUiState.isDetailDisplayedInWindow) {
-                        // TODO("通过多窗口来弹出Detail")
+                        showDetailInWindow(uiState.picList[index])
                     } else {
                         localNavigator?.push(PowerfulKotlinTab.DetailTab(uiState.picList[index]))
                     }
