@@ -28,3 +28,10 @@ expect fun SideBarItem(
 )
 
 expect fun showDetailInWindow(detail: Galleries)
+
+@Composable
+expect fun DetailDialogFrame(
+    modifier: Modifier = Modifier,
+    detailImage: @Composable () -> Unit = {},
+    detailDescription: @Composable () -> Unit = {},
+)

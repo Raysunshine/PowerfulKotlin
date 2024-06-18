@@ -13,14 +13,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -49,6 +47,7 @@ import org.koin.compose.koinInject
 import org.raysun.kmp.domain.resp.Galleries
 import org.raysun.kmp.main.MainScreenModel
 import org.raysun.kmp.main.model.DetailDisplayMode
+import org.raysun.kmp.platform.DetailDialogFrame
 import org.raysun.kmp.platform.showDetailInWindow
 import org.raysun.kmp.ui.component.PowerfulKotlinTab
 
@@ -92,38 +91,48 @@ fun GalleryScreen(
     }
 
     selectedGalleries?.run {
-        Dialog(
-            onDismissRequest = { selectedGalleries = null },
+        DetailDialog(
+            detail = this,
         ) {
+            selectedGalleries = null
+        }
+    }
+}
 
-            var isShow by remember {
-                mutableStateOf(false)
-            }
-            LaunchedEffect(this@run) {
-                delay(200)
-                isShow = true
-            }
+@Composable
+fun DetailDialog(
+    modifier: Modifier = Modifier,
+    detail: Galleries,
+    onDismissRequest: () -> Unit,
+) {
 
-            Row(
-                modifier = Modifier.wrapContentSize(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                KamelImage(
-                    resource = asyncPainterResource(data = primaryImageSmall ?: ""),
-                    contentDescription = null,
-                    modifier = Modifier.border(2.dp, color = Color.White).aspectRatio(0.6F),
-                )
+    var isShow by remember { mutableStateOf(false) }
 
-                AnimatedContent(
-                    targetState = isShow,
-                    transitionSpec = {
-                        fadeIn() + slideInHorizontally(
-                            animationSpec = spring(stiffness = Spring.StiffnessVeryLow)
-                        ) togetherWith fadeOut()
-                    }
-                ) { showInformation ->
-                    Text("Hello World", color = if (showInformation) Color.White else Color.Transparent)
+    LaunchedEffect(detail.objectID) {
+        delay(200)
+        isShow = true
+    }
+
+    Dialog(
+        onDismissRequest = onDismissRequest,
+    ) {
+        DetailDialogFrame(
+            modifier = modifier
+        ) {
+            KamelImage(
+                resource = asyncPainterResource(data = detail.primaryImageSmall ?: ""),
+                contentDescription = null,
+                modifier = Modifier.border(2.dp, color = Color.White).aspectRatio(0.6F),
+            )
+            AnimatedContent(
+                targetState = isShow,
+                transitionSpec = {
+                    fadeIn() + slideInHorizontally(
+                        animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
+                    ) togetherWith fadeOut()
                 }
+            ) { showInformation ->
+                Text("Hello World", color = if (showInformation) Color.White else Color.Transparent)
             }
         }
     }

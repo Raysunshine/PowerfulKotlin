@@ -32,3 +32,11 @@ actual fun SideBarItem(
 
 actual fun showDetailInWindow(detail: Galleries) {
 }
+
+@Composable
+actual fun DetailDialogFrame(
+    modifier: Modifier,
+    detailImage: @Composable () -> Unit,
+    detailDescription: @Composable () -> Unit,
+) {
+}
