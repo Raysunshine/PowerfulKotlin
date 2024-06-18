@@ -1,5 +1,9 @@
 package org.raysun.kmp.platform
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
@@ -134,7 +138,7 @@ actual fun showDetailInWindow(detail: Galleries) {
 actual fun DetailDialogFrame(
     modifier: Modifier,
     detailImage: @Composable () -> Unit,
-    detailDescription: @Composable () -> Unit,
+    detailDescription: @Composable (enterTransition: EnterTransition) -> Unit,
 ) {
     Row(
         modifier = Modifier.wrapContentSize(),
@@ -142,6 +146,10 @@ actual fun DetailDialogFrame(
     ) {
         detailImage()
 
-        detailDescription()
+        detailDescription(
+            slideInHorizontally(
+                animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
+            )
+        )
     }
 }

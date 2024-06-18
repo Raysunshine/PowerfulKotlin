@@ -1,5 +1,6 @@
 package org.raysun.kmp.platform
 
+import androidx.compose.animation.EnterTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
@@ -37,6 +38,6 @@ actual fun showDetailInWindow(detail: Galleries) {
 actual fun DetailDialogFrame(
     modifier: Modifier,
     detailImage: @Composable () -> Unit,
-    detailDescription: @Composable () -> Unit,
+    detailDescription: @Composable (enterTransition: EnterTransition) -> Unit,
 ) {
 }

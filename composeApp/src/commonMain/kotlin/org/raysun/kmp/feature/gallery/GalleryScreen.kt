@@ -1,11 +1,8 @@
 package org.raysun.kmp.feature.gallery
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -118,7 +115,7 @@ fun DetailDialog(
     ) {
         DetailDialogFrame(
             modifier = modifier
-        ) {
+        ) { enterTransition ->
             KamelImage(
                 resource = asyncPainterResource(data = detail.primaryImageSmall ?: ""),
                 contentDescription = null,
@@ -127,9 +124,7 @@ fun DetailDialog(
             AnimatedContent(
                 targetState = isShow,
                 transitionSpec = {
-                    fadeIn() + slideInHorizontally(
-                        animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
-                    ) togetherWith fadeOut()
+                    fadeIn() + enterTransition togetherWith fadeOut()
                 }
             ) { showInformation ->
                 Text("Hello World", color = if (showInformation) Color.White else Color.Transparent)

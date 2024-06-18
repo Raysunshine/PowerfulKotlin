@@ -1,5 +1,9 @@
 package org.raysun.kmp.platform
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,7 +39,7 @@ actual fun GalleriesFrame(
     modifier: Modifier,
     tabNavigator: TabNavigator,
     sideBarItems: List<Tab>,
-    body: @Composable (modifier: Modifier) -> Unit
+    body: @Composable (modifier: Modifier) -> Unit,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         body(Modifier.weight(1F))
@@ -94,6 +98,18 @@ actual fun showDetailInWindow(detail: Galleries) {
 actual fun DetailDialogFrame(
     modifier: Modifier,
     detailImage: @Composable () -> Unit,
-    detailDescription: @Composable () -> Unit,
+    detailDescription: @Composable (enterTransition: EnterTransition) -> Unit,
 ) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        detailImage()
+
+        detailDescription(
+            slideInVertically(
+                animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
+            )
+        )
+    }
 }
