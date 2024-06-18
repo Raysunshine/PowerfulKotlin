@@ -9,16 +9,19 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +34,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -100,34 +104,80 @@ fun DetailDialog(
     onDismissRequest: () -> Unit,
 ) {
 
-    var isShow by remember { mutableStateOf(false) }
+    var isShowDetailInformation by remember { mutableStateOf(false) }
 
     LaunchedEffect(detail.objectID) {
         delay(200)
-        isShow = true
+        isShowDetailInformation = true
     }
 
     Dialog(
         onDismissRequest = onDismissRequest,
     ) {
         DetailDialogFrame(
-            modifier = modifier.background(MaterialTheme.colors.onSurface)
-        ) { enterTransition ->
-            KamelImage(
-                resource = asyncPainterResource(data = detail.primaryImageSmall ?: ""),
-                contentDescription = null,
-                modifier = Modifier.aspectRatio(0.6F).wrapContentSize(),
-                contentScale = ContentScale.Inside,
-            )
-            AnimatedContent(targetState = isShow, transitionSpec = {
-                fadeIn() + enterTransition togetherWith fadeOut()
-            }) { showInformation ->
-                Text(
-                    "Hello World111111111111123",
-                    color = if (!showInformation) Color.Transparent else MaterialTheme.colors.onBackground
+            modifier = modifier.wrapContentSize(unbounded = true)
+                .clip(RoundedCornerShape(8.dp))
+                .background(MaterialTheme.colors.onSurface)
+                .padding(10.dp),
+            detailImage = {
+                KamelImage(
+                    resource = asyncPainterResource(data = detail.primaryImageSmall ?: ""),
+                    contentDescription = null,
+                    modifier = Modifier.aspectRatio(0.6F).wrapContentSize(),
+                    contentScale = ContentScale.Inside,
                 )
+            },
+        ) { enterTransition ->
+            AnimatedContent(
+                targetState = isShowDetailInformation,
+                transitionSpec = {
+                    fadeIn() + enterTransition togetherWith fadeOut()
+                }
+            ) { isShowInformation ->
+                Column(
+                    modifier = Modifier.width(244.dp).alpha(if (isShowInformation) 1F else 0F)
+                ) {
+                    PropertyItem(
+                        propertyName = "作品名",
+                        propertyValue = detail.title,
+                    )
+                    PropertyItem(
+                        propertyName = "风格",
+                        propertyValue = detail.department,
+                    )
+                    PropertyItem(
+                        propertyName = "作家",
+                        propertyValue = detail.artistDisplayName,
+                    )
+                    PropertyItem(
+                        propertyName = "创作年份",
+                        propertyValue = detail.objectDate,
+                    )
+                    PropertyItem(
+                        propertyName = "现存博物馆",
+                        propertyValue = detail.repository,
+                    )
+                    PropertyItem(
+                        propertyName = "展览源",
+                        propertyValue = detail.objectURL,
+                    )
+                }
             }
         }
+    }
+}
+
+@Composable
+fun PropertyItem(
+    modifier: Modifier = Modifier,
+    propertyName: String,
+    propertyValue: String?,
+) {
+    Row(
+        modifier = modifier.padding(vertical = 2.dp),
+    ) {
+        Text("$propertyName : ", color = MaterialTheme.colors.onBackground)
+        Text(propertyValue ?: "未知", color = MaterialTheme.colors.onBackground)
     }
 }
 
@@ -176,9 +226,7 @@ private fun ObjectFrame(
             style = MaterialTheme.typography.body2
         )
         Text(
-            obj.objectDate ?: "",
-            color = MaterialTheme.colors.onBackground,
-            style = MaterialTheme.typography.caption
+            obj.objectDate ?: "", color = MaterialTheme.colors.onBackground, style = MaterialTheme.typography.caption
         )
     }
 }

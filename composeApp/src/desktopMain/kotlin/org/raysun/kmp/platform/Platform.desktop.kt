@@ -18,8 +18,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -127,7 +125,7 @@ actual fun showDetailInWindow(detail: Galleries) {
                 verticalArrangement = Arrangement.Top,
             ) {
                 KamelImage(
-                    resource = asyncPainterResource(data = detail.primaryImage ?: ""),
+                    resource = asyncPainterResource(data = detail.primaryImageSmall ?: ""),
                     contentDescription = null,
                     modifier = Modifier.width(500.dp),
                     contentScale = ContentScale.FillWidth,
@@ -145,15 +143,18 @@ actual fun DetailDialogFrame(
     detailDescription: @Composable (enterTransition: EnterTransition) -> Unit,
 ) {
     Row(
-        modifier = modifier.wrapContentWidth().wrapContentHeight(unbounded = true),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
         detailImage()
 
+        Spacer(modifier = Modifier.width(12.dp))
+
         detailDescription(
             slideInHorizontally(
-                animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
+                animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
+                initialOffsetX = { -it }
             )
         )
     }
