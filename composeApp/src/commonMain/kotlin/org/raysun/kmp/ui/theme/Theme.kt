@@ -38,11 +38,11 @@ private val darkScheme = darkColors(
 
 @Composable
 fun PowerfulKotlinTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    isDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit,
 ) {
     val colorScheme = when {
-        darkTheme -> darkScheme
+        isDarkTheme -> darkScheme
         else -> lightScheme
     }
 

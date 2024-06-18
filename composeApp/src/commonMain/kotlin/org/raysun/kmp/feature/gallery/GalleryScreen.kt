@@ -65,21 +65,18 @@ fun GalleryScreen(
         uiState.picList.isNotEmpty(),
     ) { objectsAvailable ->
         if (objectsAvailable) {
-            ObjectGrid(
-                objects = uiState.picList,
-                onObjectClick = { index ->
-                    val selectedPic = uiState.picList[index]
-                    when (mainUiState.detailDisplayMode) {
-                        DetailDisplayMode.NEW_WINDOW -> showDetailInWindow(selectedPic)
+            ObjectGrid(objects = uiState.picList, onObjectClick = { index ->
+                val selectedPic = uiState.picList[index]
+                when (mainUiState.detailDisplayMode) {
+                    DetailDisplayMode.NEW_WINDOW -> showDetailInWindow(selectedPic)
 
-                        DetailDisplayMode.NEW_DIALOG -> {
-                            selectedGalleries = selectedPic
-                        }
-
-                        DetailDisplayMode.DETAIL_MODULE -> localNavigator?.push(PowerfulKotlinTab.DetailTab(selectedPic))
+                    DetailDisplayMode.NEW_DIALOG -> {
+                        selectedGalleries = selectedPic
                     }
+
+                    DetailDisplayMode.DETAIL_MODULE -> localNavigator?.push(PowerfulKotlinTab.DetailTab(selectedPic))
                 }
-            )
+            })
         } else {
             EmptyScreenContent(Modifier.fillMaxSize())
         }
@@ -119,13 +116,13 @@ fun DetailDialog(
                 contentDescription = null,
                 modifier = Modifier.aspectRatio(0.6F),
             )
-            AnimatedContent(
-                targetState = isShow,
-                transitionSpec = {
-                    fadeIn() + enterTransition togetherWith fadeOut()
-                }
-            ) { showInformation ->
-                Text("Hello World", color = if (!showInformation) Color.Transparent else MaterialTheme.colors.primary)
+            AnimatedContent(targetState = isShow, transitionSpec = {
+                fadeIn() + enterTransition togetherWith fadeOut()
+            }) { showInformation ->
+                Text(
+                    "Hello World",
+                    color = if (!showInformation) Color.Transparent else MaterialTheme.colors.onBackground
+                )
             }
         }
     }
@@ -165,9 +162,21 @@ private fun ObjectFrame(
 
         Spacer(modifier = Modifier.height(2.dp))
 
-        Text(obj.title ?: "", style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
-        Text(obj.artistDisplayName ?: "", style = MaterialTheme.typography.body2)
-        Text(obj.objectDate ?: "", style = MaterialTheme.typography.caption)
+        Text(
+            obj.title ?: "",
+            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold)
+        )
+        Text(
+            obj.artistDisplayName ?: "",
+            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.body2
+        )
+        Text(
+            obj.objectDate ?: "",
+            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.caption
+        )
     }
 }
 
@@ -179,6 +188,6 @@ fun EmptyScreenContent(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        Text("No data available")
+        Text("No data available", color = MaterialTheme.colors.onBackground)
     }
 }

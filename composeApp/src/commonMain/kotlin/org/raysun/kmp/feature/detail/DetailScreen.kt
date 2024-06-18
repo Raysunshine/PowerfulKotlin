@@ -1,6 +1,7 @@
 package org.raysun.kmp.feature.detail
 
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -25,6 +26,6 @@ fun DetailScreen(
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.size(400.dp)
         )
-    } ?: Text("请到展览中选择一张图片")
+    } ?: Text("请到展览中选择一张图片", color = MaterialTheme.colors.onBackground)
 
 }

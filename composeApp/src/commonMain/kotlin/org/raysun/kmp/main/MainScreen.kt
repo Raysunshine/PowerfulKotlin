@@ -1,6 +1,9 @@
 package org.raysun.kmp.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.CurrentScreen
@@ -26,7 +29,7 @@ class MainScreen : Screen {
                     PowerfulKotlinTab.SettingsTab,
                 ),
             ) { screenModifier ->
-                Box(modifier = screenModifier) {
+                Box(modifier = screenModifier.fillMaxSize().background(MaterialTheme.colors.background)) {
                     CurrentScreen()
                 }
             }

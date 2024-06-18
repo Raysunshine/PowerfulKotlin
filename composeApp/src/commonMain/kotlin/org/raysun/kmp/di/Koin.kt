@@ -13,6 +13,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+import org.raysun.kmp.AppViewModel
 import org.raysun.kmp.data.MuseumRepositoryImpl
 import org.raysun.kmp.domain.repository.MuseumRepository
 import org.raysun.kmp.domain.usecase.GetGalleriesUseCase
@@ -75,6 +76,7 @@ private val useCaseModule = module {
 }
 
 private val screenModelModule = module {
+    singleOf(::AppViewModel)
     singleOf(::GalleryScreenModel)
     singleOf(::DetailScreenModel)
     singleOf(::MainScreenModel)

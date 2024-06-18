@@ -109,7 +109,7 @@ actual fun SideBarItem(
         Spacer(modifier = Modifier.width(6.dp))
         Icon(icon, modifier = Modifier.size(16.dp), contentDescription = null, tint = Color.Unspecified)
         Spacer(modifier = Modifier.width(12.dp))
-        Text(symbol, fontSize = 14.sp)
+        Text(symbol, color = MaterialTheme.colors.onBackground, fontSize = 14.sp)
     }
 }
 
