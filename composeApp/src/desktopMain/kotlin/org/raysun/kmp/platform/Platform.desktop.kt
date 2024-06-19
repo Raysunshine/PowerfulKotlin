@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
@@ -60,7 +61,7 @@ actual fun GalleriesFrame(
         modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background)
     ) {
         Column(
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier.fillMaxHeight().padding(vertical = 5.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             sideBarItems.forEachIndexed { index, tab ->
@@ -101,17 +102,23 @@ actual fun SideBarItem(
         modifier = modifier
             .width(200.dp)
             .hoverable(interactionSource = hoverInteractionSource)
-            .clickable { onItemClick() }
             .padding(horizontal = 6.dp, vertical = 2.dp)
-            .background(color = itemBackground, shape = RoundedCornerShape(4.dp))
+            .clip(shape = RoundedCornerShape(4.dp))
+            .background(color = itemBackground)
+            .clickable { onItemClick() }
             .padding(vertical = 3.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         SideBarItemIndicator(visible = isSelected)
         Spacer(modifier = Modifier.width(6.dp))
-        Icon(icon, modifier = Modifier.size(16.dp), contentDescription = null, tint = Color.Unspecified)
+        Icon(icon, modifier = Modifier.size(18.dp), contentDescription = null, tint = Color.Unspecified)
         Spacer(modifier = Modifier.width(12.dp))
-        Text(symbol, color = MaterialTheme.colors.onBackground, fontSize = 14.sp)
+        Text(
+            symbol,
+            modifier = Modifier.padding(bottom = 2.dp),
+            color = MaterialTheme.colors.onBackground,
+            fontSize = 14.sp
+        )
     }
 }
 

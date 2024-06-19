@@ -50,7 +50,7 @@ fun SettingsScreen(
                 modifier = Modifier.weight(1F)
             ) {
                 item {
-                    Text("展览详情展示方式", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h3)
+                    Text("展览详情展示方式", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h5)
                 }
 
                 items(DetailDisplayMode.entries.toTypedArray()) {
@@ -76,7 +76,7 @@ fun SettingsScreen(
                 modifier = Modifier.weight(1F)
             ) {
                 item {
-                    Text("", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h3)
+                    Text("", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h5)
                 }
 
                 item {
