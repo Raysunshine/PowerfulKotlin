@@ -62,6 +62,9 @@ kotlin {
             implementation(libs.voyager.transitions)
 
             implementation(libs.kamel)
+
+            implementation(libs.multiplatform.settings)
+            implementation(libs.multiplatform.settings.serialization)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

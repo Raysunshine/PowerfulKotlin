@@ -1,12 +1,15 @@
 package org.raysun.kmp.main.model
 
+import kotlinx.serialization.Serializable
+
 data class MainScreenState(
     val detailDisplayMode: DetailDisplayMode = DetailDisplayMode.DETAIL_MODULE,
 )
 
+@Serializable
 enum class DetailDisplayMode(
     val symbol: String,
-    val description: List<String>
+    val description: List<String>,
 ) {
     DETAIL_MODULE(
         symbol = "详情页",
