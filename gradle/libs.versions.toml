@@ -20,6 +20,7 @@ ktor = "2.3.11"
 slf4j = "2.0.13"
 kamel = "0.9.5"
 multiplatform-settings = "1.1.1"
+kottie = "1.9.6-alpha02"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -61,6 +62,8 @@ kamel = { module = "media.kamel:kamel-image", version.ref = "kamel" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatform-settings" }
 multiplatform-settings-serialization = { module = "com.russhwolf:multiplatform-settings-serialization", version.ref = "multiplatform-settings" }
 
+# Kottie
+kottie = { module = "io.github.ismai117:kottie", version.ref = "kottie" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

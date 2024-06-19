@@ -1,5 +1,6 @@
 package org.raysun.kmp.feature.gallery
 
+import KottieAnimation
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -44,6 +45,10 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import kotlinx.coroutines.delay
+import kottieComposition.KottieCompositionSpec
+import kottieComposition.animateKottieCompositionAsState
+import kottieComposition.rememberKottieComposition
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.compose.koinInject
 import org.raysun.kmp.domain.resp.Galleries
 import org.raysun.kmp.main.MainScreenModel
@@ -51,6 +56,8 @@ import org.raysun.kmp.main.model.DetailDisplayMode
 import org.raysun.kmp.platform.DetailDialogFrame
 import org.raysun.kmp.platform.showDetailInWindow
 import org.raysun.kmp.ui.component.PowerfulKotlinTab
+import powerfulkotlin.composeapp.generated.resources.Res
+import utils.KottieConstants
 
 @Composable
 fun GalleryScreen(
@@ -84,7 +91,7 @@ fun GalleryScreen(
                 }
             })
         } else {
-            EmptyScreenContent(Modifier.fillMaxSize())
+            GalleriesLoading(modifier = Modifier.fillMaxSize())
         }
     }
 
@@ -167,6 +174,39 @@ fun DetailDialog(
     }
 }
 
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+fun GalleriesLoading(modifier: Modifier = Modifier) {
+    var animation by remember {
+        mutableStateOf("")
+    }
+    LaunchedEffect(Unit) {
+        animation = Res.readBytes("drawable/galleries_loading.json").decodeToString()
+    }
+
+    val composition = rememberKottieComposition(
+        spec = KottieCompositionSpec.File(animation)
+    )
+
+    val animationState by animateKottieCompositionAsState(
+        composition = composition,
+        speed = 2.5F,
+        iterations = KottieConstants.IterateForever
+    )
+
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center,
+    ) {
+        KottieAnimation(
+            composition = composition,
+            progress = { animationState.progress },
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
 @Composable
 fun PropertyItem(
     modifier: Modifier = Modifier,
@@ -228,17 +268,5 @@ private fun ObjectFrame(
         Text(
             obj.objectDate ?: "", color = MaterialTheme.colors.onBackground, style = MaterialTheme.typography.caption
         )
-    }
-}
-
-@Composable
-fun EmptyScreenContent(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center,
-    ) {
-        Text("No data available", color = MaterialTheme.colors.onBackground)
     }
 }

@@ -14,4 +14,8 @@ val AppTypography = Typography(
         fontSize = 24.sp,
         fontWeight = FontWeight.Medium,
     ),
+    h5 = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Normal,
+    ),
 )

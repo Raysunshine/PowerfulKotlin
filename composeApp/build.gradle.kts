@@ -65,6 +65,8 @@ kotlin {
 
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.serialization)
+
+            implementation(libs.kottie)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
