@@ -92,7 +92,7 @@ actual fun SideBarItem(
     }
 }
 
-actual fun showDetailInWindow(detail: Galleries) {
+actual fun showDetailInWindow(modifier: Modifier, detail: Galleries) {
 }
 
 @Composable

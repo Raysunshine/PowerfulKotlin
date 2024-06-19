@@ -37,6 +37,9 @@ object AppWindowManager {
 
     fun removeWindowById(id: String): Boolean = windows.removeAll { it.id == id }
 
-
     fun checkIfWindowExists(id: String): Boolean = windows.fastAny { it.id == id }
+
+    fun checkIfWindowExists(type: WindowType): Boolean = windows.fastAny { it.type == type }
+
+    fun removeWindowByType(type: WindowType) = windows.removeAll { it.type == type }
 }

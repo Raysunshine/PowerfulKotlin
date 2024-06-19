@@ -67,6 +67,7 @@ fun GalleryScreen(
 
     val localNavigator = LocalNavigator.current
     val uiState = screenModel.state.collectAsState().value
+    val newWindowBackground = MaterialTheme.colors.background
 
     val mainUiState = mainScreenModel.state.collectAsState().value
 
@@ -78,18 +79,25 @@ fun GalleryScreen(
         uiState.picList.isNotEmpty(),
     ) { objectsAvailable ->
         if (objectsAvailable) {
-            ObjectGrid(objects = uiState.picList, onObjectClick = { index ->
-                val selectedPic = uiState.picList[index]
-                when (mainUiState.detailDisplayMode) {
-                    DetailDisplayMode.NEW_WINDOW -> showDetailInWindow(selectedPic)
+            ObjectGrid(
+                objects = uiState.picList,
+                onObjectClick = { index ->
+                    val selectedPic = uiState.picList[index]
+                    when (mainUiState.detailDisplayMode) {
+                        DetailDisplayMode.NEW_WINDOW -> {
+                            showDetailInWindow(
+                                modifier = Modifier.background(newWindowBackground), selectedPic
+                            )
+                        }
 
-                    DetailDisplayMode.NEW_DIALOG -> {
-                        selectedGalleries = selectedPic
+                        DetailDisplayMode.NEW_DIALOG -> {
+                            selectedGalleries = selectedPic
+                        }
+
+                        DetailDisplayMode.DETAIL_MODULE -> localNavigator?.push(PowerfulKotlinTab.DetailTab(selectedPic))
                     }
-
-                    DetailDisplayMode.DETAIL_MODULE -> localNavigator?.push(PowerfulKotlinTab.DetailTab(selectedPic))
-                }
-            })
+                },
+            )
         } else {
             GalleriesLoading(modifier = Modifier.fillMaxSize())
         }

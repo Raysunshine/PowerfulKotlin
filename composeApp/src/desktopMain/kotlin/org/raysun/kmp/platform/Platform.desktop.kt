@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.navigator.tab.Tab
@@ -114,26 +115,28 @@ actual fun SideBarItem(
     }
 }
 
-actual fun showDetailInWindow(detail: Galleries) {
-    AppWindowManager.createNewWindow(
-        title = detail.title ?: "",
-        type = WindowType.COMMON,
-        content = {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top,
-            ) {
-                KamelImage(
-                    resource = asyncPainterResource(data = detail.primaryImageSmall ?: ""),
-                    contentDescription = null,
-                    modifier = Modifier.width(500.dp),
-                    contentScale = ContentScale.FillWidth,
-                )
-                Spacer(modifier = Modifier.weight(1F))
+actual fun showDetailInWindow(modifier: Modifier, detail: Galleries) {
+    with(AppWindowManager) {
+        removeWindowByType(type = WindowType.COMMON)
+        createNewWindow(
+            title = detail.title ?: "",
+            type = WindowType.COMMON,
+            content = {
+                Column(
+                    modifier = Modifier.fillMaxSize().then(modifier),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Top,
+                ) {
+                    KamelImage(
+                        resource = asyncPainterResource(data = detail.primaryImageSmall ?: ""),
+                        contentDescription = null,
+                        modifier = Modifier.size(DpSize(800.dp, 600.dp)),
+                        contentScale = ContentScale.Inside,
+                    )
+                }
             }
-        }
-    )
+        )
+    }
 }
 
 @Composable

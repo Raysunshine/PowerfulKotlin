@@ -28,7 +28,7 @@ expect fun SideBarItem(
     onItemClick: () -> Unit,
 )
 
-expect fun showDetailInWindow(detail: Galleries)
+expect fun showDetailInWindow(modifier: Modifier, detail: Galleries)
 
 @Composable
 expect fun DetailDialogFrame(
