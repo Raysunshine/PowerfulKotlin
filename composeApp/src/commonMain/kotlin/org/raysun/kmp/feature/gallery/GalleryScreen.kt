@@ -182,7 +182,7 @@ fun GalleriesLoading(modifier: Modifier = Modifier) {
         mutableStateOf("")
     }
     LaunchedEffect(Unit) {
-        animation = Res.readBytes("drawable/galleries_loading.json").decodeToString()
+        animation = Res.readBytes("plurals/galleries_loading.json").decodeToString()
     }
 
     val composition = rememberKottieComposition(

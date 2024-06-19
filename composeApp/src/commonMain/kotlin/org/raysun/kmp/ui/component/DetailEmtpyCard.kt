@@ -32,7 +32,7 @@ fun DetailEmptyCard(modifier: Modifier = Modifier) {
         mutableStateOf("")
     }
     LaunchedEffect(Unit) {
-        animation = Res.readBytes("drawable/details_empty_lottie.json").decodeToString()
+        animation = Res.readBytes("plurals/details_empty_lottie.json").decodeToString()
     }
 
     val composition = rememberKottieComposition(
