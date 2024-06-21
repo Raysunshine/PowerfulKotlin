@@ -41,7 +41,7 @@ fun SettingsScreen(
     Column(
         modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 12.dp),
     ) {
-        Text("设置", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h1)
+        Text("设置", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h3)
         Spacer(modifier = Modifier.height(15.dp))
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -50,7 +50,7 @@ fun SettingsScreen(
                 modifier = Modifier.weight(1F)
             ) {
                 item {
-                    Text("展览详情展示方式", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h5)
+                    Text("展览详情展示方式", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h6)
                 }
 
                 items(DetailDisplayMode.entries.toTypedArray()) {
@@ -76,7 +76,7 @@ fun SettingsScreen(
                 modifier = Modifier.weight(1F)
             ) {
                 item {
-                    Text("", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h5)
+                    Text("", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.subtitle1)
                 }
 
                 item {

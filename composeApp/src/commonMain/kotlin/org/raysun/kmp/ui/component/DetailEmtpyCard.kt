@@ -61,7 +61,7 @@ fun DetailEmptyCard(modifier: Modifier = Modifier) {
         Text(
             "请在[设置]中勾选[详情页]，并在[展览]中挑选一张图片",
             color = MaterialTheme.colors.onBackground,
-            style = MaterialTheme.typography.h5
+            style = MaterialTheme.typography.subtitle1
         )
     }
 }
