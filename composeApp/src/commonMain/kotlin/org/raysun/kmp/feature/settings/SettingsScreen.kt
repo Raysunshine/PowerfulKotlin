@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Checkbox
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +27,7 @@ import org.raysun.kmp.AppViewModel
 import org.raysun.kmp.main.MainScreenModel
 import org.raysun.kmp.main.model.DetailDisplayMode
 import org.raysun.kmp.main.model.MainScreenAction.OnShowDetailDisplayedInWindowChanged
+import org.raysun.kmp.ui.component.ColorfulSwitch
 
 @Composable
 fun SettingsScreen(
@@ -125,7 +125,7 @@ fun SettingItemCard(
             ) {
                 Text(symbol, color = MaterialTheme.colors.onBackground)
 
-                Checkbox(isChecked, onCheckedChange = onCheckedChanged)
+                ColorfulSwitch(isChecked, onCheckedChanged = onCheckedChanged)
             }
 
             descriptionContent()
