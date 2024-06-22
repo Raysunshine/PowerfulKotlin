@@ -37,6 +37,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import io.kamel.image.KamelImage
@@ -125,7 +126,11 @@ actual fun SideBarItem(
     }
 }
 
-actual fun showDetailInWindow(modifier: Modifier, detail: Galleries) {
+actual fun showDetailInWindow(
+    modifier: Modifier,
+    localNavigator: Navigator?,
+    detail: Galleries,
+) {
     with(AppWindowManager) {
         removeWindowByType(type = WindowType.COMMON)
         createNewWindow(

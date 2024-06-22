@@ -66,6 +66,7 @@ fun GalleryScreen(
 ) {
 
     val localNavigator = LocalNavigator.current
+
     val uiState = screenModel.state.collectAsState().value
     val newWindowBackground = MaterialTheme.colors.background
 
@@ -86,7 +87,9 @@ fun GalleryScreen(
                     when (mainUiState.detailDisplayMode) {
                         DetailDisplayMode.NEW_WINDOW -> {
                             showDetailInWindow(
-                                modifier = Modifier.background(newWindowBackground), selectedPic
+                                modifier = Modifier.background(newWindowBackground),
+                                localNavigator,
+                                selectedPic
                             )
                         }
 

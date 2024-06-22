@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import org.raysun.kmp.domain.resp.Galleries
@@ -29,7 +30,11 @@ expect fun SideBarItem(
     onItemClick: () -> Unit,
 )
 
-expect fun showDetailInWindow(modifier: Modifier, detail: Galleries)
+expect fun showDetailInWindow(
+    modifier: Modifier,
+    localNavigator: Navigator? = null,
+    detail: Galleries,
+)
 
 @Composable
 expect fun DetailDialogFrame(

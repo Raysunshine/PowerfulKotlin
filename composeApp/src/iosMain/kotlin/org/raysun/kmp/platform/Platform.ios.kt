@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import org.raysun.kmp.domain.resp.Galleries
@@ -32,7 +33,11 @@ actual fun SideBarItem(
 ) {
 }
 
-actual fun showDetailInWindow(modifier: Modifier, detail: Galleries) {
+actual fun showDetailInWindow(
+    modifier: Modifier,
+    localNavigator: Navigator?,
+    detail: Galleries,
+) {
 }
 
 @Composable

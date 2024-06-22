@@ -27,10 +27,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import org.jetbrains.compose.resources.painterResource
 import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.ui.GalleryDetailScreen
 import powerfulkotlin.composeapp.generated.resources.Res
 import powerfulkotlin.composeapp.generated.resources.compose_multiplatform
 
@@ -98,7 +100,12 @@ actual fun SideBarItem(
     }
 }
 
-actual fun showDetailInWindow(modifier: Modifier, detail: Galleries) {
+actual fun showDetailInWindow(
+    modifier: Modifier,
+    localNavigator: Navigator?,
+    detail: Galleries,
+) {
+    localNavigator?.parent?.push(GalleryDetailScreen(detail = detail))
 }
 
 @Composable
