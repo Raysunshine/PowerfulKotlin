@@ -39,7 +39,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.slf4j.simple)
-            implementation(libs.multiplatform.settings.datastore)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -66,7 +66,6 @@ kotlin {
 
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.serialization)
-            implementation(libs.multiplatform.settings.coroutines)
 
             implementation(libs.kottie)
         }

@@ -2,16 +2,19 @@ package org.raysun.kmp
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
-import org.raysun.kmp.platform.IS_DARK_THEME
-import org.raysun.kmp.platform.settings
+import org.raysun.kmp.domain.usecase.GetDarkThemeUseCase
+import org.raysun.kmp.domain.usecase.StoreDarkThemeUseCase
 
-class AppViewModel {
+class AppViewModel(
+    private val getDarkThemeUseCase: GetDarkThemeUseCase,
+    private val storeDarkThemeUseCase: StoreDarkThemeUseCase,
+) {
     var isDarkTheme = MutableStateFlow(false)
         private set
 
     init {
         isDarkTheme.update {
-            settings.getBoolean(IS_DARK_THEME, false)
+            getDarkThemeUseCase.invoke()
         }
     }
 
@@ -19,7 +22,7 @@ class AppViewModel {
         this.isDarkTheme.update {
             isDarkTheme
         }.also {
-            settings.putBoolean(IS_DARK_THEME, isDarkTheme)
+            storeDarkThemeUseCase.invoke(isDarkTheme = isDarkTheme)
         }
     }
 }

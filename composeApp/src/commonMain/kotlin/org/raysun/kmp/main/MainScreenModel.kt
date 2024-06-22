@@ -1,23 +1,21 @@
 package org.raysun.kmp.main
 
 import cafe.adriel.voyager.core.model.StateScreenModel
-import com.russhwolf.settings.ExperimentalSettingsApi
-import com.russhwolf.settings.serialization.decodeValueOrNull
-import com.russhwolf.settings.serialization.encodeValue
 import kotlinx.coroutines.flow.update
-import kotlinx.serialization.ExperimentalSerializationApi
+import org.raysun.kmp.domain.usecase.GetDetailDisplayModeUseCase
+import org.raysun.kmp.domain.usecase.StoreDetailDisplayModeUseCase
 import org.raysun.kmp.main.model.DetailDisplayMode
 import org.raysun.kmp.main.model.MainScreenAction
 import org.raysun.kmp.main.model.MainScreenAction.OnShowDetailDisplayedInWindowChanged
 import org.raysun.kmp.main.model.MainScreenState
-import org.raysun.kmp.platform.DETAIL_DISPLAY_MODE
-import org.raysun.kmp.platform.settings
 
-@OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
-class MainScreenModel : StateScreenModel<MainScreenState>(MainScreenState()) {
+class MainScreenModel(
+    getDetailDisplayModeUseCase: GetDetailDisplayModeUseCase,
+    private val storeDetailDisplayModeUseCase: StoreDetailDisplayModeUseCase,
+) : StateScreenModel<MainScreenState>(MainScreenState()) {
 
     init {
-        settings.decodeValueOrNull(DetailDisplayMode.serializer(), DETAIL_DISPLAY_MODE)?.let {
+        getDetailDisplayModeUseCase.invoke().let {
             mutableState.update { state ->
                 state.copy(
                     detailDisplayMode = it
@@ -36,7 +34,7 @@ class MainScreenModel : StateScreenModel<MainScreenState>(MainScreenState()) {
                 detailDisplayMode = newMode
             )
         }.also {
-            settings.encodeValue(DetailDisplayMode.serializer(), DETAIL_DISPLAY_MODE, newMode)
+            storeDetailDisplayModeUseCase.invoke(displayMode = newMode)
         }
     }
 }

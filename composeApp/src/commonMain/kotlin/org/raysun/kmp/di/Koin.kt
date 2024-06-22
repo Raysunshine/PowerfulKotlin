@@ -12,17 +12,25 @@ import kotlinx.serialization.json.Json
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 import org.raysun.kmp.AppViewModel
+import org.raysun.kmp.data.DataStoreRepositoryImpl
 import org.raysun.kmp.data.MuseumRepositoryImpl
+import org.raysun.kmp.domain.repository.DataStoreRepository
 import org.raysun.kmp.domain.repository.MuseumRepository
+import org.raysun.kmp.domain.usecase.GetDarkThemeUseCase
+import org.raysun.kmp.domain.usecase.GetDetailDisplayModeUseCase
 import org.raysun.kmp.domain.usecase.GetGalleriesUseCase
+import org.raysun.kmp.domain.usecase.StoreDarkThemeUseCase
+import org.raysun.kmp.domain.usecase.StoreDetailDisplayModeUseCase
 import org.raysun.kmp.feature.detail.DetailScreenModel
 import org.raysun.kmp.feature.gallery.GalleryScreenModel
 import org.raysun.kmp.main.MainScreenModel
 
-fun initKoin() {
+fun initKoin(appDeclaration: KoinAppDeclaration = {}) {
     startKoin {
+        appDeclaration()
         modules(
             platformModule,
             networkModule,
@@ -69,10 +77,15 @@ private val networkModule = module {
 
 private val repositoryModule = module {
     single<MuseumRepository> { MuseumRepositoryImpl(get()) }
+    single<DataStoreRepository> { DataStoreRepositoryImpl(get()) }
 }
 
 private val useCaseModule = module {
     singleOf(::GetGalleriesUseCase)
+    singleOf(::GetDarkThemeUseCase)
+    singleOf(::StoreDarkThemeUseCase)
+    singleOf(::GetDetailDisplayModeUseCase)
+    singleOf(::StoreDetailDisplayModeUseCase)
 }
 
 private val screenModelModule = module {
