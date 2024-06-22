@@ -6,7 +6,6 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
-
 @Composable
 fun PowerfulKotlinTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
@@ -28,7 +27,7 @@ private val lightScheme = lightColors(
     primary = primaryLight,
     primaryVariant = primaryVariantLight,
     secondary = secondaryLight,
-    secondaryVariant = secondaryContainerLight,
+    secondaryVariant = secondaryVariantLight,
     background = backgroundLight,
     surface = surfaceLight,
     error = errorLight,
@@ -43,7 +42,7 @@ private val darkScheme = darkColors(
     primary = primaryDark,
     primaryVariant = primaryVariantDark,
     secondary = secondaryDark,
-    secondaryVariant = secondaryContainerDark,
+    secondaryVariant = secondaryVariantDark,
     background = backgroundDark,
     surface = surfaceDark,
     error = errorDark,

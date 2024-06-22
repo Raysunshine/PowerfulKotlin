@@ -18,8 +18,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,66 +40,173 @@ import powerfulkotlin.composeapp.generated.resources.icon_random_dot
 import powerfulkotlin.composeapp.generated.resources.icon_starts
 
 
-private val defaultSwitchHorizontalPadding = 3.dp
-private val defaultSwitchVerticalPadding = 5.dp
-private val switchWidth = 54.dp
-private val switchHeight = 30.dp
-private val thumbDiameter = 20.dp
+@Stable
+interface ColorfulSwitchColors {
+
+    @Composable
+    fun backgroundColor(checked: Boolean): State<Color>
+
+
+    @Composable
+    fun thumbColor(checked: Boolean): State<Color>
+}
+
+@Immutable
+private class DefaultColorfulSwitchColors(
+    private val backgroundColor: Color,
+    private val thumbColor: Color,
+    private val unCheckedBackgroundColor: Color,
+    private val unCheckedThumbColor: Color,
+) : ColorfulSwitchColors {
+
+    @Composable
+    override fun backgroundColor(checked: Boolean): State<Color> {
+        return rememberUpdatedState(if (checked) backgroundColor else unCheckedBackgroundColor)
+    }
+
+    @Composable
+    override fun thumbColor(checked: Boolean): State<Color> {
+        return rememberUpdatedState(if (checked) thumbColor else unCheckedThumbColor)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as DefaultColorfulSwitchColors
+
+        if (backgroundColor != other.backgroundColor) return false
+        if (thumbColor != other.thumbColor) return false
+        if (unCheckedBackgroundColor != other.unCheckedBackgroundColor) return false
+        if (unCheckedThumbColor != other.unCheckedThumbColor) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = backgroundColor.hashCode()
+        result = 31 * result + thumbColor.hashCode()
+        result = 31 * result + unCheckedBackgroundColor.hashCode()
+        result = 31 * result + unCheckedThumbColor.hashCode()
+        return result
+    }
+}
+
+object ColorfulSwitchDefaults {
+
+    val defaultSwitchHorizontalPadding = 3.dp
+    val defaultSwitchVerticalPadding = 5.dp
+    val switchWidth = 54.dp
+    val switchHeight = 28.dp
+    val thumbDiameter = 20.dp
+    const val SWITCH_CHECK_DURATION = 250
+
+    @Composable
+    fun colorfulSwitchColors(
+        backgroundColor: Color = MaterialTheme.colors.onSurface,
+        thumbColor: Color = MaterialTheme.colors.onSecondary,
+        unCheckedBackgroundColor: Color = MaterialTheme.colors.secondary,
+        unCheckedThumbColor: Color = MaterialTheme.colors.secondaryVariant,
+    ): ColorfulSwitchColors = DefaultColorfulSwitchColors(
+        backgroundColor = backgroundColor,
+        thumbColor = thumbColor,
+        unCheckedBackgroundColor = unCheckedBackgroundColor,
+        unCheckedThumbColor = unCheckedThumbColor,
+    )
+}
 
 @Composable
 fun ColorfulSwitch(
     checked: Boolean,
     onCheckedChanged: (Boolean) -> Unit,
+    colors: ColorfulSwitchColors = ColorfulSwitchDefaults.colorfulSwitchColors(),
 ) {
+
+    val switchBackgroundColor = colors.backgroundColor(checked = checked)
+
+    val thumbColor = colors.thumbColor(checked = checked)
+
     val xOffset = with(LocalDensity.current) {
-        (switchWidth - thumbDiameter - defaultSwitchHorizontalPadding * 2).roundToPx()
+        (ColorfulSwitchDefaults.switchWidth - ColorfulSwitchDefaults.thumbDiameter - ColorfulSwitchDefaults.defaultSwitchHorizontalPadding * 2).roundToPx()
     }
 
     val offset by animateIntOffsetAsState(
         targetValue = if (checked) IntOffset(x = xOffset, y = 0) else IntOffset.Zero,
         animationSpec = tween(
-            durationMillis = 250,
+            durationMillis = ColorfulSwitchDefaults.SWITCH_CHECK_DURATION,
             easing = LinearEasing,
         ),
     )
 
-    val switchBackgroundColor by animateColorAsState(
-        targetValue = if (checked) Color(0xFF3F4D5D) else Color(0xFF7DDFFB),
-        animationSpec = tween(
-            durationMillis = 150,
-            easing = LinearEasing,
-        )
-    )
-
-    val thumbBackground by animateColorAsState(
-        targetValue = if (checked) Color(0xFFC0CCCC) else Color(0xFFF0E054),
-        animationSpec = tween(
-            durationMillis = 150,
-            easing = LinearEasing,
-        )
-    )
-
-    val defaultSwitchVerticalPaddingInt = with(LocalDensity.current) {
-        defaultSwitchHorizontalPadding.roundToPx()
-    }
-
     Box(
-        modifier = Modifier
-            .size(switchWidth, switchHeight)
-            .clip(RoundedCornerShape(switchHeight / 2))
-            .background(color = switchBackgroundColor)
-            .clickable { onCheckedChanged(!checked) }
-            .padding(
-                horizontal = defaultSwitchHorizontalPadding,
-                vertical = defaultSwitchVerticalPadding,
+        modifier = Modifier.size(ColorfulSwitchDefaults.switchWidth, ColorfulSwitchDefaults.switchHeight)
+            .clip(RoundedCornerShape(ColorfulSwitchDefaults.switchHeight / 2))
+            .background(color = switchBackgroundColor.value).clickable { onCheckedChanged(!checked) }.padding(
+                horizontal = ColorfulSwitchDefaults.defaultSwitchHorizontalPadding,
+                vertical = ColorfulSwitchDefaults.defaultSwitchVerticalPadding,
             ),
     ) {
         Box(
             modifier = Modifier
                 .offset { offset }
-                .size(thumbDiameter)
+                .size(ColorfulSwitchDefaults.thumbDiameter)
                 .clip(CircleShape)
-                .background(color = thumbBackground)
+                .background(color = thumbColor.value)
+        )
+    }
+
+
+}
+
+@Composable
+fun ColorfulSwitch(
+    checked: Boolean,
+    onCheckedChanged: (Boolean) -> Unit,
+    thumbAnimationDuration: Int,
+) {
+    val xOffset = with(LocalDensity.current) {
+        (ColorfulSwitchDefaults.switchWidth - ColorfulSwitchDefaults.thumbDiameter - ColorfulSwitchDefaults.defaultSwitchHorizontalPadding * 2).roundToPx()
+    }
+
+    val offset by animateIntOffsetAsState(
+        targetValue = if (checked) IntOffset(x = xOffset, y = 0) else IntOffset.Zero,
+        animationSpec = tween(
+            durationMillis = thumbAnimationDuration,
+            easing = LinearEasing,
+        ),
+    )
+
+    val switchBackgroundColor by animateColorAsState(
+        targetValue = if (checked) Color(0xFF3F4D5D) else Color(0xFF7DDFFB), animationSpec = tween(
+            durationMillis = thumbAnimationDuration,
+            easing = LinearEasing,
+        )
+    )
+
+    val thumbBackground by animateColorAsState(
+        targetValue = if (checked) Color(0xFFC0CCCC) else Color(0xFFF0E054), animationSpec = tween(
+            durationMillis = thumbAnimationDuration,
+            easing = LinearEasing,
+        )
+    )
+
+    val defaultSwitchVerticalPaddingInt = with(LocalDensity.current) {
+        ColorfulSwitchDefaults.defaultSwitchHorizontalPadding.roundToPx()
+    }
+
+    Box(
+        modifier = Modifier.size(ColorfulSwitchDefaults.switchWidth, ColorfulSwitchDefaults.switchHeight)
+            .clip(RoundedCornerShape(ColorfulSwitchDefaults.switchHeight / 2))
+            .background(color = switchBackgroundColor).clickable { onCheckedChanged(!checked) }.padding(
+                horizontal = ColorfulSwitchDefaults.defaultSwitchHorizontalPadding,
+                vertical = ColorfulSwitchDefaults.defaultSwitchVerticalPadding,
+            ),
+    ) {
+        Box(
+            modifier = Modifier.offset { offset }
+                .size(ColorfulSwitchDefaults.thumbDiameter)
+                .clip(CircleShape)
+                .background(color = thumbBackground),
         ) {
             AnimatedVisibility(
                 checked,
@@ -113,12 +225,24 @@ fun ColorfulSwitch(
         AnimatedVisibility(
             visible = checked,
             modifier = Modifier.align(Alignment.CenterStart),
-            enter = slideIn(initialOffset = {
-                IntOffset(-it.width, 0)
-            }),
-            exit = slideOut(targetOffset = {
-                IntOffset(-it.width, 0)
-            }),
+            enter = slideIn(
+                animationSpec = tween(
+                    durationMillis = thumbAnimationDuration,
+                    easing = LinearEasing,
+                ),
+                initialOffset = {
+                    IntOffset(-it.width, 0)
+                },
+            ),
+            exit = slideOut(
+                animationSpec = tween(
+                    durationMillis = thumbAnimationDuration,
+                    easing = LinearEasing,
+                ),
+                targetOffset = {
+                    IntOffset(-it.width, 0)
+                },
+            ),
         ) {
             Icon(
                 painter = painterResource(Res.drawable.icon_starts),
@@ -129,13 +253,26 @@ fun ColorfulSwitch(
 
         AnimatedVisibility(
             visible = !checked,
-            modifier = Modifier.padding(end = defaultSwitchVerticalPadding).align(Alignment.CenterEnd),
-            enter = slideIn(initialOffset = {
-                IntOffset(it.width + defaultSwitchVerticalPaddingInt, 0)
-            }),
-            exit = slideOut(targetOffset = {
-                IntOffset(it.width + defaultSwitchVerticalPaddingInt, 0)
-            }),
+            modifier = Modifier.padding(end = ColorfulSwitchDefaults.defaultSwitchVerticalPadding)
+                .align(Alignment.CenterEnd),
+            enter = slideIn(
+                animationSpec = tween(
+                    durationMillis = thumbAnimationDuration,
+                    easing = LinearEasing,
+                ),
+                initialOffset = {
+                    IntOffset(it.width + defaultSwitchVerticalPaddingInt, 0)
+                },
+            ),
+            exit = slideOut(
+                animationSpec = tween(
+                    durationMillis = thumbAnimationDuration,
+                    easing = LinearEasing,
+                ),
+                targetOffset = {
+                    IntOffset(it.width + defaultSwitchVerticalPaddingInt, 0)
+                },
+            ),
         ) {
             Icon(
                 painter = painterResource(Res.drawable.icon_cloud),

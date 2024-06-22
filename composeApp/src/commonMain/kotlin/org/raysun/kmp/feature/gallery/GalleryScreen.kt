@@ -132,7 +132,7 @@ fun DetailDialog(
         DetailDialogFrame(
             modifier = modifier.wrapContentSize(unbounded = true)
                 .clip(RoundedCornerShape(8.dp))
-                .background(MaterialTheme.colors.onSurface)
+                .background(MaterialTheme.colors.surface)
                 .padding(10.dp),
             detailImage = {
                 KamelImage(
