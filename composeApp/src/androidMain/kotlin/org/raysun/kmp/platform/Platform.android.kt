@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -42,7 +44,7 @@ actual fun GalleriesFrame(
     sideBarItems: List<Tab>,
     body: @Composable (modifier: Modifier) -> Unit,
 ) {
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background)) {
         body(Modifier.weight(1F))
         Spacer(
             modifier = Modifier
@@ -113,4 +115,27 @@ actual fun DetailDialogFrame(
             )
         )
     }
+}
+
+@Composable
+actual fun SettingsFrame(
+    modifier: Modifier,
+    galleryDetailDisplayModule: LazyListScope.() -> Unit,
+    darkThemeModule: LazyListScope.() -> Unit,
+) {
+
+    Column(
+        modifier = modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 12.dp),
+    ) {
+        Text("设置", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h5)
+        Spacer(modifier = Modifier.height(15.dp))
+        LazyColumn(
+            modifier = Modifier.weight(1F)
+        ) {
+            galleryDetailDisplayModule()
+
+            darkThemeModule()
+        }
+    }
+
 }

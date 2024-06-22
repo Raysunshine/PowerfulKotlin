@@ -1,6 +1,7 @@
 package org.raysun.kmp.platform
 
 import androidx.compose.animation.EnterTransition
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
@@ -39,5 +40,13 @@ actual fun DetailDialogFrame(
     modifier: Modifier,
     detailImage: @Composable () -> Unit,
     detailDescription: @Composable (enterTransition: EnterTransition) -> Unit,
+) {
+}
+
+@Composable
+actual fun SettingsFrame(
+    modifier: Modifier,
+    galleryDetailDisplayModule: LazyListScope.() -> Unit,
+    darkThemeModule: LazyListScope.() -> Unit,
 ) {
 }

@@ -15,9 +15,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -167,5 +170,37 @@ actual fun DetailDialogFrame(
                 initialOffsetX = { -it }
             )
         )
+    }
+}
+
+@Composable
+actual fun SettingsFrame(
+    modifier: Modifier,
+    galleryDetailDisplayModule: LazyListScope.() -> Unit,
+    darkThemeModule: LazyListScope.() -> Unit,
+) {
+    Column(
+        modifier = modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 12.dp),
+    ) {
+        Text("设置", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h3)
+        Spacer(modifier = Modifier.height(15.dp))
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            LazyColumn(
+                modifier = Modifier.weight(1F)
+            ) {
+                galleryDetailDisplayModule()
+            }
+
+            Spacer(modifier = Modifier.width(20.dp))
+
+            LazyColumn(
+                modifier = Modifier.weight(1F)
+            ) {
+                darkThemeModule()
+            }
+
+        }
     }
 }
