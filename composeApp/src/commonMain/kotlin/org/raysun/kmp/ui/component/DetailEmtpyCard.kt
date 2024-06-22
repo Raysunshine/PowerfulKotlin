@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -56,10 +57,11 @@ fun DetailEmptyCard(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize(0.8F)
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         Text(
             "请在[设置]中勾选[详情页]，并在[展览]中挑选一张图片",
+            modifier = Modifier.padding(horizontal = 20.dp),
             color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.subtitle1
         )

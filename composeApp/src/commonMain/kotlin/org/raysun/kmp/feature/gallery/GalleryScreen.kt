@@ -10,7 +10,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,6 +55,7 @@ import org.raysun.kmp.main.model.DetailDisplayMode
 import org.raysun.kmp.platform.DetailDialogFrame
 import org.raysun.kmp.platform.showDetailInWindow
 import org.raysun.kmp.ui.component.PowerfulKotlinTab
+import org.raysun.kmp.ui.component.PropertyItem
 import powerfulkotlin.composeapp.generated.resources.Res
 import utils.KottieConstants
 
@@ -215,20 +215,6 @@ fun GalleriesLoading(modifier: Modifier = Modifier) {
             progress = { animationState.progress },
             modifier = Modifier.fillMaxSize()
         )
-    }
-}
-
-@Composable
-fun PropertyItem(
-    modifier: Modifier = Modifier,
-    propertyName: String,
-    propertyValue: String?,
-) {
-    Row(
-        modifier = modifier.padding(vertical = 2.dp),
-    ) {
-        Text("$propertyName : ", color = MaterialTheme.colors.onBackground)
-        Text(propertyValue ?: "未知", color = MaterialTheme.colors.onBackground)
     }
 }
 
