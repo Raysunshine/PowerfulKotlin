@@ -71,11 +71,14 @@ actual fun GalleriesFrame(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             sideBarItems.forEach { tab ->
+                val isSelected = tabNavigator.current.options.index == tab.options.index
                 SideBarItem(
                     symbol = tab.options.title,
                     icon = tab.options.icon ?: painterResource(resource = Res.drawable.compose_multiplatform),
-                    isSelected = tabNavigator.current == tab
+                    isSelected = isSelected
                 ) {
+                    if (isSelected) return@SideBarItem
+
                     tabNavigator.current = tab
                 }
             }

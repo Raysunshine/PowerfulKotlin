@@ -76,7 +76,7 @@ actual fun GalleriesFrame(
                 SideBarItem(
                     symbol = tab.options.title,
                     icon = tab.options.icon ?: painterResource(Res.drawable.compose_multiplatform),
-                    isSelected = tabNavigator.current.options.index == tab.options.index,
+                    isSelected = isSelected,
                 ) {
                     if (isSelected) return@SideBarItem
 
