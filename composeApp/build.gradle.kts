@@ -78,6 +78,9 @@ kotlin {
     }
 }
 
+val keyStoreAlis: String = System.getenv("RaysunKeyAlis") ?: error("RaysunKeyAlis Variable Not Found!")
+val keyStorePassword: String = System.getenv("RaysunKeyPassword") ?: error("RaysunKeyPassword Variable Not Found!")
+
 android {
     namespace = "org.raysun.kmp"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -90,17 +93,29 @@ android {
         applicationId = "org.raysun.kmp"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 20240623
+        versionName = "1.0.0"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    signingConfigs {
+        create("RaysunKey") {
+            storeFile = File(rootDir.absolutePath, "RaysunKey.jks")
+            storePassword = keyStorePassword
+            keyAlias = keyStoreAlis
+            keyPassword = keyStorePassword
+        }
+    }
+
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("RaysunKey")
         }
     }
     compileOptions {
