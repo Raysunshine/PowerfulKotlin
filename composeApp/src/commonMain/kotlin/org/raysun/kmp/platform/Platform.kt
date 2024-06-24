@@ -8,13 +8,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.domain.resp.Composition
 
 @Composable
 expect fun ExitReminder(onCloseRequest: () -> Unit = {})
 
 @Composable
-expect fun GalleriesFrame(
+expect fun GalleryFrame(
     modifier: Modifier = Modifier,
     tabNavigator: TabNavigator,
     sideBarItems: List<Tab>,
@@ -33,7 +33,7 @@ expect fun SideBarItem(
 expect fun showDetailInWindow(
     modifier: Modifier,
     localNavigator: Navigator? = null,
-    detail: Galleries,
+    detail: Composition,
 )
 
 @Composable

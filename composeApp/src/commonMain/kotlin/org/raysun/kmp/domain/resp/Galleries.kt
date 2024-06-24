@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Galleries(
+data class Composition(
     @SerialName("artistDisplayName")
     val artistDisplayName: String? = "",
     @SerialName("creditLine")
@@ -29,5 +29,5 @@ data class Galleries(
     @SerialName("repository")
     val repository: String? = "",
     @SerialName("title")
-    val title: String? = ""
+    val title: String? = "",
 )

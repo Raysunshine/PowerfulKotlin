@@ -1,8 +1,8 @@
 package org.raysun.kmp.domain.repository
 
-import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.domain.resp.Composition
 
 interface MuseumRepository {
 
-    suspend fun getGalleries(): List<Galleries>
+    suspend fun getComposition(): List<Composition>
 }

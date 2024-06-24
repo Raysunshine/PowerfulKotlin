@@ -5,21 +5,21 @@ import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.json.Json
 import org.raysun.kmp.domain.repository.MuseumRepository
-import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.domain.resp.Composition
 
 class MuseumRepositoryImpl(
     private val httpClient: HttpClient,
 ) : MuseumRepository {
-    override suspend fun getGalleries(): List<Galleries> {
-        val galleriesString = try {
+    override suspend fun getComposition(): List<Composition> {
+        val compositionString = try {
             httpClient.get("/Kotlin/KMP-App-Template/main/list.json").bodyAsText()
         } catch (e: Exception) {
-            galleriesBodyString
+            compositionBodyString
         }
-        return Json.decodeFromString(galleriesString)
+        return Json.decodeFromString(compositionString)
     }
 
-    private val galleriesBodyString = """[
+    private val compositionBodyString = """[
           {
           "objectID": 436535,
           "title": "Wheat Field with Cypresses",

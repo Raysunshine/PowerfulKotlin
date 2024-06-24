@@ -19,9 +19,9 @@ import org.raysun.kmp.data.DataStoreRepositoryImpl
 import org.raysun.kmp.data.MuseumRepositoryImpl
 import org.raysun.kmp.domain.repository.DataStoreRepository
 import org.raysun.kmp.domain.repository.MuseumRepository
+import org.raysun.kmp.domain.usecase.GetCompositionUseCase
 import org.raysun.kmp.domain.usecase.GetDarkThemeUseCase
 import org.raysun.kmp.domain.usecase.GetDetailDisplayModeUseCase
-import org.raysun.kmp.domain.usecase.GetGalleriesUseCase
 import org.raysun.kmp.domain.usecase.StoreDarkThemeUseCase
 import org.raysun.kmp.domain.usecase.StoreDetailDisplayModeUseCase
 import org.raysun.kmp.feature.detail.DetailScreenModel
@@ -81,7 +81,7 @@ private val repositoryModule = module {
 }
 
 private val useCaseModule = module {
-    singleOf(::GetGalleriesUseCase)
+    singleOf(::GetCompositionUseCase)
     singleOf(::GetDarkThemeUseCase)
     singleOf(::StoreDarkThemeUseCase)
     singleOf(::GetDetailDisplayModeUseCase)

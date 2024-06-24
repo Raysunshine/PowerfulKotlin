@@ -6,7 +6,7 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
-import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.domain.resp.Composition
 import org.raysun.kmp.feature.detail.DetailScreen
 import org.raysun.kmp.feature.detail.DetailScreenModel
 import org.raysun.kmp.feature.detail.model.DetailScreenAction
@@ -41,13 +41,13 @@ sealed class PowerfulKotlinTab {
     }
 
     data class DetailTab(
-        private val detail: Galleries? = null,
+        private val detail: Composition? = null,
     ) : Tab {
         @Composable
         override fun Content() {
             val screenModel: DetailScreenModel = koinInject()
             if (detail != null) with(detail) {
-                screenModel.onAction(DetailScreenAction.OnGalleriesChanged(this))
+                screenModel.onAction(DetailScreenAction.OnCompositionChanged(this))
             }
             DetailScreen(screenModel = screenModel)
         }

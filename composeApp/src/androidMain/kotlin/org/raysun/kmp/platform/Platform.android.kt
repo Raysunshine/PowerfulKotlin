@@ -37,7 +37,7 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import org.jetbrains.compose.resources.painterResource
-import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.domain.resp.Composition
 import org.raysun.kmp.ui.GalleryDetailScreen
 import powerfulkotlin.composeapp.generated.resources.Res
 import powerfulkotlin.composeapp.generated.resources.compose_multiplatform
@@ -47,14 +47,15 @@ actual fun ExitReminder(onCloseRequest: () -> Unit) {
 }
 
 @Composable
-actual fun GalleriesFrame(
+actual fun GalleryFrame(
     modifier: Modifier,
     tabNavigator: TabNavigator,
     sideBarItems: List<Tab>,
     body: @Composable (modifier: Modifier) -> Unit,
 ) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
             .background(MaterialTheme.colors.background)
             .statusBarsPadding(),
     ) {
@@ -112,7 +113,8 @@ actual fun SideBarItem(
     ) {
         Spacer(modifier = Modifier.height(5.dp))
         Box(
-            modifier = Modifier.wrapContentSize()
+            modifier = Modifier
+                .wrapContentSize()
                 .clip(RoundedCornerShape(22.dp))
                 .background(selectedBackground)
                 .padding(vertical = 4.dp, horizontal = 18.dp),
@@ -128,7 +130,7 @@ actual fun SideBarItem(
 actual fun showDetailInWindow(
     modifier: Modifier,
     localNavigator: Navigator?,
-    detail: Galleries,
+    detail: Composition,
 ) {
     localNavigator?.parent?.push(GalleryDetailScreen(detail = detail))
 }
@@ -161,7 +163,9 @@ actual fun SettingsFrame(
 ) {
 
     Column(
-        modifier = modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 12.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 20.dp, vertical = 12.dp),
     ) {
         Text("设置", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.h5)
         Spacer(modifier = Modifier.height(15.dp))

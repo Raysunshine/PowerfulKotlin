@@ -44,7 +44,7 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.painterResource
 import org.raysun.kmp.components.SideBarItemIndicator
-import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.domain.resp.Composition
 import org.raysun.kmp.window.AppWindowManager
 import org.raysun.kmp.window.WindowType
 import powerfulkotlin.composeapp.generated.resources.Res
@@ -55,7 +55,7 @@ actual fun ExitReminder(onCloseRequest: () -> Unit) {
 }
 
 @Composable
-actual fun GalleriesFrame(
+actual fun GalleryFrame(
     modifier: Modifier,
     tabNavigator: TabNavigator,
     sideBarItems: List<Tab>,
@@ -129,7 +129,7 @@ actual fun SideBarItem(
 actual fun showDetailInWindow(
     modifier: Modifier,
     localNavigator: Navigator?,
-    detail: Galleries,
+    detail: Composition,
 ) {
     with(AppWindowManager) {
         removeWindowByType(type = WindowType.COMMON)

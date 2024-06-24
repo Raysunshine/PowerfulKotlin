@@ -11,15 +11,18 @@ import androidx.compose.ui.graphics.Color
 import cafe.adriel.voyager.core.screen.Screen
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import org.raysun.kmp.domain.resp.Galleries
+import org.raysun.kmp.domain.resp.Composition
 
 data class GalleryDetailScreen(
-    private val detail: Galleries,
+    private val detail: Composition,
 ) : Screen {
     @Composable
     override fun Content() {
         Scaffold(
-            modifier = Modifier.fillMaxSize().background(color = Color.Black).statusBarsPadding(),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color.Black)
+                .statusBarsPadding(),
             backgroundColor = Color.Black,
         ) {
             KamelImage(

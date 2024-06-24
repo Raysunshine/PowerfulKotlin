@@ -9,7 +9,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import org.raysun.kmp.platform.GalleriesFrame
+import org.raysun.kmp.platform.GalleryFrame
 import org.raysun.kmp.ui.component.PowerfulKotlinTab
 
 class MainScreen : Screen {
@@ -21,7 +21,7 @@ class MainScreen : Screen {
         ) {
             val tabNavigator = LocalTabNavigator.current
 
-            GalleriesFrame(
+            GalleryFrame(
                 tabNavigator = tabNavigator,
                 sideBarItems = listOf(
                     PowerfulKotlinTab.GalleryTab,
