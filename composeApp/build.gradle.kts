@@ -73,7 +73,7 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.ktor.client.apache)
             implementation(libs.ktor.client.logging.jvm)
-            implementation(libs.slf4j.api)
+            implementation(libs.slf4j.simple)
         }
     }
 }
