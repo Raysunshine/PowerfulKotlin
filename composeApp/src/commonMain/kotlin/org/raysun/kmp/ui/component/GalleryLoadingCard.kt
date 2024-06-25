@@ -15,6 +15,7 @@ import kottieComposition.KottieCompositionSpec
 import kottieComposition.animateKottieCompositionAsState
 import kottieComposition.rememberKottieComposition
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.raysun.kmp.data.constant.ResourceConstant
 import powerfulkotlin.composeapp.generated.resources.Res
 import utils.KottieConstants
 
@@ -25,7 +26,7 @@ fun GalleryLoadingCard(modifier: Modifier = Modifier) {
         mutableStateOf("")
     }
     LaunchedEffect(Unit) {
-        animation = Res.readBytes("plurals/galleries_loading.json").decodeToString()
+        animation = Res.readBytes(ResourceConstant.GALLERY_LOADING_LOTTIE).decodeToString()
     }
 
     val composition = rememberKottieComposition(

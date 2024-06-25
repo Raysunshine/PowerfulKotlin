@@ -22,6 +22,7 @@ import kottieComposition.KottieCompositionSpec
 import kottieComposition.animateKottieCompositionAsState
 import kottieComposition.rememberKottieComposition
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.raysun.kmp.data.constant.ResourceConstant
 import powerfulkotlin.composeapp.generated.resources.Res
 import utils.KottieConstants
 
@@ -33,7 +34,7 @@ fun DetailEmptyCard(modifier: Modifier = Modifier) {
         mutableStateOf("")
     }
     LaunchedEffect(Unit) {
-        animation = Res.readBytes("plurals/details_empty_lottie.json").decodeToString()
+        animation = Res.readBytes(ResourceConstant.DETAIL_EMPTY_LOTTIE).decodeToString()
     }
 
     val composition = rememberKottieComposition(

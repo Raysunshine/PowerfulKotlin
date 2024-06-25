@@ -55,6 +55,7 @@ voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", vers
 
 # slf4j
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 
 # kamel
 kamel = { module = "media.kamel:kamel-image", version.ref = "kamel" }
